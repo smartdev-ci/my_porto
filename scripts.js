@@ -11,64 +11,68 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateClock, 1000);
 });
 
+
 // Initialiser le terminal
-function initializeTerminal() {
-    const terminalElement = document.getElementById('terminal');
-    terminal = new Terminal();
-    terminal.open(terminalElement);
-
-    // Initial prompt
-    terminal.writeln('Welcome to the Command Prompt');
-    terminal.writeln('Type "help" to see available commands.');
-    terminal.write('> ');
-
-    let currentInput = '';
-
-    terminal.onData(data => {
-        if (data === '\r') { // Entrée
-            terminal.writeln('');
-            handleTerminalCommand(currentInput.trim());
-            currentInput = '';
-        } else if (data === '\u007F') { // Backspace
-            currentInput = currentInput.slice(0, -1);
-            terminal.write('\b \b');
-        } else {
-            currentInput += data;
-            terminal.write(data);
+$(document).ready(function() {
+    const greetingMessage = 'Welcome to the Command Prompt\nType "help" to see available commands.\n ';
+    const terminal = $('#terminal').terminal(function(command, term) {
+        switch (command.trim().toLowerCase()) {
+            case 'clear':
+                term.clear();
+                term.echo(greetingMessage);
+                break;
+            case 'help':
+                term.echo('Available commands:');
+                term.echo('clear - Clears the terminal.');
+                term.echo('help - Shows this help message.');
+                term.echo('about - Displays information about this portfolio.');
+                term.echo('exit - Closes the terminal.');
+                break;
+            case 'about':
+                term.echo('This is a portfolio command prompt simulation.');
+                term.echo('Created by Aristide Ghislain Adouko.');
+                break;
+            case 'exit':
+                closeModal('command-prompt-modal');
+                // Pass the terminal object to resetTerminal
+                resetTerminal(terminal);
+                break;
+            default:
+                term.echo('Command not recognized.');
+                break;
         }
+    }, {
+        greetings: greetingMessage,
+        prompt: '~/aristide.adouko@epitech.eu > '
     });
-}
 
-function handleTerminalCommand(command) {
-    switch (command.toLowerCase()) {
-        case 'clear':
-            terminal.clear();
-            break;
-        case 'help':
-            terminal.writeln('Available commands:');
-            terminal.writeln('clear - Clears the terminal.');
-            terminal.writeln('help - Shows this help message.');
-            terminal.writeln('about - Displays information about this portfolio.');
-            break;
-        case 'about':
-            terminal.writeln('This is a portfolio command prompt simulation.');
-            terminal.writeln('Created by Aristide Ghislain Adouko.');
-            break;
-        default:
-            terminal.writeln('Command not recognized.');
-            break;
+    // Fonction pour fermer la modale
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
     }
-}
 
-// Réinitialiser le terminal
-function resetTerminal() {
-    if (terminal) {
-        terminal.clear();
-        terminal.writeln('Welcome to the Command Prompt');
-        terminal.writeln('Type "help" to see available commands.');
-        terminal.write('> ');
+    // Réinitialiser le terminal
+    function resetTerminal(term) {
+        if (term) {
+            term.clear();
+            term.echo('Welcome to the Command Prompt');
+            term.echo('Type "help" to see available commands.');
+            term.echo('> ');
+        } else {
+            console.error('Terminal instance is undefined.');
+        }
     }
-}
+
+    // Fonction pour ouvrir la modale
+    window.openModal = function(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+    };
+
+    // Ajoute une fonction pour ouvrir le terminal au besoin
+    window.initializeTerminal = function() {
+        openModal('command-prompt-modal');
+    };
+});
 
 // Toggle du menu démarrer
 function handleStartMenu() {
@@ -108,6 +112,10 @@ function handleDesktopIcons() {
 }
 
 // Gestion de la calculatrice
+$(document).ready(function() {
+    handleCalculator();
+});
+
 function handleCalculator() {
     const calculatorIcon = document.getElementById('calculator-icon');
     const calculator = document.getElementById('calculator');
@@ -116,15 +124,30 @@ function handleCalculator() {
     const display = document.getElementById('display');
     const buttons = document.querySelectorAll('.buttons button');
 
+    // Déboguer pour vérifier que les éléments sont trouvés
+    console.log('calculatorIcon:', calculatorIcon);
+    console.log('calculator:', calculator);
+    console.log('calculatorHeader:', calculatorHeader);
+    console.log('closeCalculatorButton:', closeCalculatorButton);
+    console.log('display:', display);
+    console.log('buttons:', buttons);
+
+    if (!calculatorIcon || !calculator || !calculatorHeader || !closeCalculatorButton || !display) {
+        console.warn('Un ou plusieurs éléments nécessaires sont manquants.');
+        return;
+    }
+
     let offsetX, offsetY, isDragging = false;
 
     // Afficher la calculatrice lorsqu'on clique sur l'icône
     calculatorIcon.addEventListener('click', () => {
+        console.log('Afficher la calculatrice'); // Déboguer le clic
         calculator.classList.remove('hidden');
     });
 
     // Bouton Fermé
     closeCalculatorButton.addEventListener('click', () => {
+        console.log('Fermer la calculatrice'); // Déboguer le clic
         calculator.classList.add('hidden');
     });
 
@@ -160,7 +183,6 @@ function handleCalculator() {
             } else if (value === '=') {
                 calculateResult(); // Calculer le résultat
             } else if (value === 'Fermé') {
-                display.textContent = ''; // Réinitialiser l'affichage pour le bouton "Fermé"
                 calculator.classList.add('hidden'); // Cacher la calculatrice
             } else {
                 display.textContent += value; // Ajouter la valeur du bouton à l'affichage
@@ -170,24 +192,50 @@ function handleCalculator() {
 
     function calculateResult() {
         try {
-            display.textContent = eval(display.textContent);
+            // Utilisation de la méthode Function au lieu de eval pour plus de sécurité
+            display.textContent = new Function('return ' + display.textContent)();
         } catch (error) {
             display.textContent = 'Error';
         }
     }
 }
 
+
 // Gestion de la recherche
 function handleSearch() {
     const searchInput = document.querySelector('.search-bar input');
-    searchInput.addEventListener('input', (event) => {
+    
+    // Vérifie que l'élément de recherche existe
+    if (!searchInput) {
+        console.warn('L\'élément de recherche n\'a pas été trouvé.');
+        return;
+    }
+    
+    // Supprime les anciens écouteurs d'événements pour éviter les doublons
+    searchInput.removeEventListener('input', onSearchInput);
+    searchInput.addEventListener('input', onSearchInput);
+
+    function onSearchInput(event) {
         const searchTerm = event.target.value.toLowerCase();
-        document.querySelectorAll('.desktop-icons .icon').forEach(icon => {
-            const text = icon.querySelector('span').textContent.toLowerCase();
+
+        // Vérifie que les éléments existent
+        const icons = document.querySelectorAll('.desktop-icons .icon');
+        if (icons.length === 0) {
+            console.warn('Aucun élément à filtrer.');
+            return;
+        }
+
+        icons.forEach(icon => {
+            // Utiliser un texte par défaut si span est absent
+            const span = icon.querySelector('span');
+            const text = span ? span.textContent.toLowerCase() : '';
             icon.style.display = text.includes(searchTerm) ? 'block' : 'none';
         });
-    });
+    }
 }
+
+// Appel de la fonction handleSearch pour initialiser les écouteurs
+handleSearch();
 
 // Fonction pour ouvrir un modal
 function openModal(modalId) {
