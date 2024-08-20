@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows 11 Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@4.17.0/css/xterm.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/xterm@4.17.0/lib/xterm.js"></script>
+    <script src="translations.js"></script>
+</head>
+
+<body>
+    <div class="desktop">
+        <!-- Photo de Profil -->
+        <div class="profile-section">
+            <img src="assets/img/profile-picture.jpg" alt="Profile Picture" class="profile-picture-desktop">
+            <p data-i18n="profile_name" class="profile-name">Aristide Ghislain Adouko</p>
+            <p data-i18n="job_title">Développeur Web/Mobile Fullstack Junior</p>
+            <button id="themeToggle" class="theme-toggle-button">🌙</button>
+        </div>
+
+
+        <div class="desktop-icons">
+            <div class="icon" id="cv-icon" draggable="true">
+                <a href="assets/docs/mon-cv.pdf" download id="cv-icon" class="icon">
+                    <img src="assets/icons/cv-icon.png" alt="CV Icon" />
+                </a>
+                <span>Telecharger CV</span>
+            </div>
+            <div class="icon" draggable="true" onclick="openModal('project1-modal')">
+                <img src="assets/icons/recycle-bin.png" alt="Project 1">
+                <span data-i18n="project1">Projets école</span>
+            </div>
+            <div class="icon" draggable="true" onclick="openModal('project2-modal')">
+                <img src="assets/icons/my-documents.png" alt="Project 2">
+                <span data-i18n="project2">Projets proféssionnels</span>
+            </div>
+            <div class="icon" draggable="true" onclick="openModal('sticky-note-modal')">
+                <img src="assets/icons/sticky-note-icon.png" alt="Sticky Note">
+                <span data-i18n="sticky-note">Sticky Note</span>
+            </div>
+            <!-- Parcours Scolaire Icon -->
+            <div class="icon" draggable="true" onclick="openModal('education-modal')">
+                <img src="assets/icons/diploma-icon.png" alt="Diploma">
+                <span data-i18n="education">Education</span>
+            </div>
+            <!-- Expérience Professionnelle Icon -->
+            <div class="icon" draggable="true" onclick="openModal('experience-modal')">
+                <img src="assets/icons/briefcase-icon.png" alt="Experience">
+                <span data-i18n="experience">Experiences professionnelles</span>
+            </div>
+            <div draggable="true" class="icon" onclick="openModal('contact-modal')">
+                <img src="assets/icons/outlook-icon.png" alt="Contacts" />
+                <span>Contacts</span>
+            </div>
+            <div class="icon" id="calculator-icon" draggable="true">
+                <img src="assets/icons/calculator-icon.png" alt="Calculator Icon" />
+                <span>Calculatrice</span>
+            </div>
+        </div>
+
+        <div class="start-menu" id="startMenu">
+            <div data-i18n="start_menu_header" class="start-menu-header">Start Menu</div>
+            <ul class="start-menu-list">
+                <li><img src="assets/icons/settings-icon.png" alt="Settings"> Skills</li>
+                <li><img src="assets/icons/documents-icon.png" alt="Documents"> About Me</li>
+                <li><img src="assets/icons/pictures-icon.png" alt="Pictures"> Portfolio</li>
+                <li><img src="assets/icons/music-icon.png" alt="Music"> Contact</li>
+                <!-- New Education Item -->
+                <li><img src="assets/icons/diploma-icon.png" alt="Education"> Education</li>
+                <!-- New Experience Item -->
+                <li><img src="assets/icons/briefcase-icon.png" alt="Experience"> Experience</li>
+            </ul>
+        </div>
+
+        <div class="taskbar">
+            <div class="start-button" id="startButton">
+                <img src="assets/icons/start-icon.png" alt="Start">
+            </div>
+            <div class="taskbar-icons">
+                <img src="assets/icons/explorer-icon.png" alt="File Explorer">
+                <img src="assets/icons/edge-icon.png" alt="Microsoft Edge">
+                <img src="assets/icons/store-icon.png" alt="Microsoft Store">
+                <!-- New Command Prompt Icon -->
+                <img src="assets/icons/command-prompt-icon.png" alt="Command Prompt"
+                    onclick="openModal('command-prompt-modal')">
+                <!-- New Search Bar -->
+                <div class="search-bar">
+                    <input type="text" placeholder="Search..." data-i18n="search_placeholder">
+                </div>
+            </div>
+            <div class="system-tray">
+                <img src="assets/icons/network-icon.png" alt="Network">
+                <img src="assets/icons/sound-icon.png" alt="Sound">
+                <img src="assets/icons/battery-icon.png" alt="Battery">
+                <div class="clock" id="clock"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour le pense-bête -->
+    <div class="modal" id="sticky-note-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('sticky-note-modal')">&times;</span>
+            <h2 data-i18n="about_me_title">À propos de moi</h2>
+            <div class="sticky-note-content">
+                <img src="assets/img/profile-picture.jpg" alt="Profile Picture" class="profile-picture">
+                <div class="row">
+                    <div class="col-12">
+                        <p><span class="title-s">Nom: </span> <span>Aristide Ghislain Adouko</span></p>
+                        <p><span class="title-s">Profile: </span> <span>Developpeur FullStack Junior</span></p>
+                        <p><span class="title-s">Email: </span> <span>aristide.adouko@epitech.eu</span></p>
+                        <p><span class="title-s">Phone: </span> <span>+225 07-87-58-78-77</span></p>
+                    </div>
+                </div>
+                <h2 data-i18n="about_me_title">Compétences</h2>
+                <div class="col-12 skills">
+
+                </div>
+                <p data-i18n="about_me_description">Bonjour, je suis Aristide Ghislain Adouko, un développeur web
+                    passionné par la création
+                    d'applications interactives et élégantes. Bienvenue sur mon portfolio inspiré de l'interface de
+                    Windows 11 !</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour le parcours scolaire -->
+    <div class="modal" id="education-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('education-modal')">&times;</span>
+            <h2 data-i18n="education_title">Parcours Scolaire</h2>
+            <div class="education-content">
+                <img src="assets/icons/diploma-icon.png" alt="Diploma" class="education-icon">
+                <p data-i18n="education_description">Voici un aperçu de mon parcours scolaire, y compris mes diplômes et
+                    formations. Vous pouvez explorer
+                    les détails ci-dessous.</p>
+                <!-- Ajoutez des détails spécifiques ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale pour l'expérience professionnelle -->
+    <div class="modal" id="experience-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('experience-modal')">&times;</span>
+            <h2 data-i18n="experience_title">Expérience Professionnelle</h2>
+            <div class="experience-content">
+                <img src="assets/icons/briefcase-icon.png" alt="Experience" class="experience-icon">
+                <p data-i18n="experience_description">Voici un aperçu de mon expérience professionnelle, y compris les
+                    postes que j'ai occupés et les
+                    responsabilités que j'ai assumées. Vous pouvez explorer les détails ci-dessous.</p>
+                <!-- Ajoutez des détails spécifiques ici -->
+            </div>
+        </div>
+    </div>
+    <!-- Modale pour le Command Prompt -->
+    <div id="contact-modal" onclick="closeModal('contact-modal')" class="modal hidden col-12">
+        <div class="modal-content row">
+            <span id="close-outlook-modal" class="close-button">&times;</span>
+            <h2>Contactez moi</h2>
+            <p>Nom: [Votre Nom]</p>
+            <p>Email: [Votre Email]</p>
+            <p>Téléphone: [Votre Téléphone]</p>
+
+            <h3>Envoyer un Email</h3>
+            <form id="email-form">
+                <label for="email-to">À:</label>
+                <input type="email" id="email-to" name="email-to" required /><br />
+
+                <label for="email-subject">Objet:</label>
+                <input type="text" id="email-subject" name="email-subject" required /><br />
+
+                <label for="email-body">Message:</label>
+                <textarea id="email-body" name="email-body" required></textarea><br />
+
+                <button type="submit">Envoyer</button>
+            </form>
+        </div>
+    </div>
+    <!-- Modale pour l'invite de commande -->
+    <div class="modal" id="command-prompt-modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal('command-prompt-modal')">&times;</span>
+            <h2 data-i18n="command_prompt_title">Command Prompt</h2>
+            <div id="terminal" class="terminal"></div>
+        </div>
+    </div>
+
+    <div id="calculator" class="calculator hidden">
+        <div class="calculator calculator-header" id="calculator-header">
+            <div class="display" id="display"></div>
+            <div class="buttons">
+                <button data-value="7">7</button>
+                <button data-value="8">8</button>
+                <button data-value="9">9</button>
+                <button data-value="/">/</button>
+                <button data-value="4">4</button>
+                <button data-value="5">5</button>
+                <button data-value="6">6</button>
+                <button data-value="*">*</button>
+                <button data-value="1">1</button>
+                <button data-value="2">2</button>
+                <button data-value="3">3</button>
+                <button data-value="-">-</button>
+                <button data-value="0">0</button>
+                <button data-value=".">.</button>
+                <button data-value="=">=</button>
+                <button data-value="+">+</button>
+                <button data-value="C">C</button>
+                <button data-value="Fermé" id="close-calculator" class="close-calculator-button">Fermé</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

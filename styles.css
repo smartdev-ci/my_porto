@@ -1,0 +1,498 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('assets/img/wallpaper.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: url('assets/icons/custom-cursor.png') 16 16, auto;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
+
+/* Photo de Profil sur le Bureau */
+.profile-section {
+    position: absolute;
+    bottom: 55px;
+    right: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    text-align: center;
+}
+
+.profile-picture-desktop {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px solid #0078d4;
+}
+
+.profile-name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+
+/* Barre des tâches */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Icônes du bureau */
+.desktop-icons .icon {
+    margin: 10px;
+    text-align: center;
+    width: 80px;
+    transition: transform 0.2s ease;
+    cursor: url('assets/icons/custom-cursor.png') 16 16, auto;
+}
+
+.desktop-icons .icon:hover {
+    transform: scale(1.1);
+}
+
+/* Menu démarrer */
+.start-menu {
+    position: fixed;
+    bottom: 60px;
+    left: 10px;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.start-menu-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.start-menu-list {
+    list-style: none;
+    padding: 0;
+}
+
+.start-menu-list li {
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    cursor: url('assets/icons/custom-cursor.png') 16 16, auto;
+}
+
+.start-menu-list li img {
+    margin-right: 10px;
+    width: 20px;
+}
+
+.start-menu-list li:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.taskbar-icons img {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
+    cursor: url('assets/icons/custom-cursor.png') 16 16, auto;
+}
+
+.system-tray {
+        margin-right: 20px;
+}
+
+.system-tray img {
+    width: 18px; 
+    height: 18px;
+    margin-left: 5px;
+}
+
+.clock {
+    font-size: 14px;
+    color: #333;
+}
+
+.start-menu.show {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* Styles pour la fenêtre modale */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+    float: right;
+    font-size: 24px;
+    cursor: url('assets/icons/custom-cursor.png') 16 16, auto;
+}
+
+/* Montre la fenêtre modale */
+.show-modal {
+    display: flex;
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+/* Modal for Sticky Note */
+/* .modal-content .sticky-note-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+} */
+
+.modal-content .sticky-note-content {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    /* text-align: center; */
+    /* padding: 20px; */
+}
+
+.modal-content .profile-picture {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    font-size: 16px;
+    color: #333;
+}
+.taskbar-icons {
+    display: flex;
+    align-items: center;
+}
+.taskbar-icons img {
+    width: 24px;
+    height: 24px;
+    margin: 0 5px;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #444;
+    border-radius: 20px;
+    padding: 0 10px;
+    margin: 0 10px;
+}
+
+.search-bar input {
+    background: none;
+    border: none;
+    color: white;
+    padding: 5px;
+    width: 150px;
+    border-radius: 20px;
+    outline: none;
+}
+.taskbar-icons img[alt="Command Prompt"] {
+    width: 24px;
+    height: 24px;
+}
+
+/* Modal Styles (if needed) */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.show-modal {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.command-prompt {
+    font-family: 'Ubuntu Mono', monospace;
+    color: #e6e6e6;
+    background-color: #2e3436;
+    padding: 10px;
+    border-radius: 5px;
+    height: 300px;
+    overflow-y: auto;
+    border: 2px solid #4e9a06;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.command-output {
+    white-space: pre-wrap;
+    margin-bottom: 10px;
+}
+
+#commandInput {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: #e6e6e6;
+    caret-color: #e6e6e6;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 16px;
+    padding: 5px;
+}
+
+#commandInput:focus {
+    outline: none;
+}
+
+.modal-content {
+    background-color: #2e3436;
+    color: #e6e6e6;
+    padding: 15px;
+}
+
+.terminal {
+    width: 100%;
+    height: 300px;
+    background: #000;
+    color: #0f0;
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid #555;
+    overflow: hidden;
+}
+
+.calculator {
+  width: 235px;
+  margin: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.display {
+  width: 100%;
+  height: 40px;
+  background: #222;
+  color: #fff;
+  text-align: right;
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 18px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #f0f0f0;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #ddd;
+}
+
+button:active {
+  background: #ccc;
+}
+.calculator-header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    cursor: move;
+    text-align: center;
+    font-weight: bold;
+}
+
+.close-calculator-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Style pour le bouton de bascule du thème */
+.theme-toggle-button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s;
+}
+
+.theme-toggle-button:hover {
+    background-color: #ddd;
+}
+
+/* Thème sombre */
+body.dark-theme {
+    background-color: #121212; /* Couleur de fond sombre */
+    color: #e0e0e0; /* Couleur du texte clair */
+}
+
+body.dark-theme header {
+    background-color: #1e1e1e; /* Couleur de fond de l'en-tête sombre */
+    border-bottom: 1px solid #333; /* Bordure de l'en-tête sombre */
+}
+
+body.dark-theme #startMenu {
+    background-color: #1e1e1e; /* Couleur de fond du menu démarrer sombre */
+    border: 1px solid #333; /* Bordure du menu démarrer sombre */
+}
+
+body.dark-theme #terminal {
+    background-color: #1e1e1e; /* Couleur de fond du terminal sombre */
+    color: #00ff00; /* Couleur du texte du terminal */
+    border: 1px solid #00ff00; /* Bordure du terminal */
+}
+
+body.dark-theme #calculator {
+    background-color: #2e2e2e; /* Couleur de fond de la calculatrice sombre */
+}
+
+body.dark-theme #calculator-header {
+    background-color: #333; /* Couleur de fond de l'en-tête de la calculatrice sombre */
+}
+
+body.dark-theme .icon {
+    background-color: #333; /* Couleur de fond des icônes sombre */
+    border: 1px solid #444; /* Bordure des icônes sombre */
+}
+
+body.dark-theme .search-bar {
+    background-color: #333; /* Couleur de fond de la barre de recherche sombre */
+}
+
+body.dark-theme .search-bar input {
+    color: #e0e0e0; /* Couleur du texte de la barre de recherche sombre */
+}
+
+body.dark-theme .modal {
+    background-color: rgba(0, 0, 0, 0.8); /* Couleur de fond de la fenêtre modale sombre */
+}
+
+body.dark-theme .modal-content {
+    background-color: #1e1e1e; /* Couleur de fond du contenu de la fenêtre modale sombre */
+    color: #e0e0e0; /* Couleur du texte de la fenêtre modale sombre */
+}
+
+body.dark-theme .taskbar {
+    background: rgba(0, 0, 0, 0.7); /* Couleur de fond de la barre des tâches sombre */
+}
+
+body.dark-theme .taskbar-icons img {
+    filter: brightness(0) invert(1);
+}
+
+body.dark-theme .profile-section {
+    background-color: #1e1e1e; /* Couleur de fond de la section de profil sombre */
+}
+
+body.dark-theme .profile-name,
+body.dark-theme .profile-section p {
+    color: #e0e0e0; /* Couleur du texte de la section de profil sombre */
+}
+
+body.dark-theme .command-prompt {
+    background-color: #121212; /* Couleur de fond de l'invite de commande sombre */
+    border: 2px solid #4e9a06; /* Bordure de l'invite de commande sombre */
+}k
+
+body.dark-theme .command-output {
+    color: #e0e0e0; /* Couleur du texte de sortie de commande sombre */
+}
+
+body.dark-theme .calculator button {
+    background-color: #333; /* Couleur de fond des boutons de la calculatrice sombre */
+    color: #e0e0e0; /* Couleur du texte des boutons de la calculatrice sombre */
+}
+
+body.dark-theme button {
+    background-color: #333; /* Couleur de fond des autres boutons sombre */
+    color: #e0e0e0; /* Couleur du texte des boutons sombre */
+}
+
