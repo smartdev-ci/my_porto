@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevOS Portfolio - Start Menu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "accent-blue-gradient": "linear-gradient(135deg, #0078D4 0%, #50B0E8 100%)",
+                        "text-primary-dark": "#E0E0E0",
+                        "tertiary-container": "#bc5b00",
+                        "tertiary-fixed": "#ffdbc8",
+                        "surface-container-low": "#f3f3f3",
+                        "error-container": "#ffdad6",
+                        "bg-dark": "#121212",
+                        "surface-dark": "#1E1E1E",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#4bc1fe",
+                        "secondary": "#00658d",
+                        "outline": "#717783",
+                        "background": "#f9f9f9",
+                        "primary": "#005faa",
+                        "on-secondary-container": "#004d6c",
+                        "on-primary-fixed-variant": "#004883",
+                        "surface-light": "#FFFFFF",
+                        "primary-container": "#0078d4",
+                        "on-tertiary-fixed": "#311300",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#ffffff",
+                        "on-secondary-fixed-variant": "#004c6b",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f1f1",
+                        "inverse-primary": "#a3c9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "surface-container-high": "#e8e8e8",
+                        "primary-fixed": "#d3e3ff",
+                        "surface-container-highest": "#e2e2e2",
+                        "inverse-surface": "#2f3131",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#c0c7d4",
+                        "secondary-fixed": "#c6e7ff",
+                        "surface-container": "#eeeeee",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-tint": "#0060ab",
+                        "on-tertiary-container": "#ffffff",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "text-primary-light": "#1A1A1A",
+                        "terminal-green": "#4E9A06",
+                        "tertiary": "#974700",
+                        "surface-dim": "#dadada",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "surface-variant": "#e2e2e2",
+                        "on-surface-variant": "#404752",
+                        "secondary-fixed-dim": "#81cfff",
+                        "surface-bright": "#f9f9f9",
+                        "on-secondary-fixed": "#001e2d",
+                        "on-primary-fixed": "#001c39",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "window-padding": "24px",
+                        "taskbar-height": "50px",
+                        "icon-grid": "80px",
+                        "desktop-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "window-title": ["manrope"],
+                        "icon-label": ["inter"],
+                        "clock": ["inter"],
+                        "body-sm": ["inter"],
+                        "body-md": ["inter"],
+                        "metadata": ["inter"]
+                    },
+                    "fontSize": {
+                        "window-title": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "icon-label": ["12px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "clock": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "metadata": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&amp;family=Manrope:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #f0f4f8; /* Fallback */
+        }
+        .desktop-bg {
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Start Menu specific styles */
+        .start-menu {
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen w-screen overflow-hidden flex flex-col relative">
+<!-- Desktop Background -->
+<div class="absolute inset-0 z-0 desktop-bg" data-alt="A beautiful, high-resolution abstract wallpaper in a light-mode color palette. Featuring smooth, flowing organic shapes in shades of pale blue, soft white, and light gray. The composition is clean, modern, and perfectly suited as an operating system desktop background, promoting focus and clarity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDRcAV1eQG48qpVzPPfKMO-0sRHuHOJ8H3lQFNwuL05LkEkAC-97KAD4fFZB2jzs2S9kMcOT9nw1cwwthOmskjdUmlbKaYkmdyI8KfyIThnU2vWy3UuAyRns-efESRbHuBxDGQBwzJQ7jqQjYuQ0Tq8OsM1w0ba7oySRe6oQaIAG9sqkfCnebr3GzLtP4reo-H2XkTau_jpQWiZ4Aay9H4LkSRwzq9T36hBaYhHtg02gKOH1WIBOMfs')"></div>
+<!-- Desktop Icons Grid -->
+<div class="absolute inset-0 z-10 p-desktop-margin grid grid-cols-[repeat(auto-fill,var(--spacing-icon-grid))] grid-rows-[repeat(auto-fill,var(--spacing-icon-grid))] gap-2 content-start justify-start">
+<!-- Icon: This PC -->
+<button class="flex flex-col items-center justify-center w-icon-grid h-icon-grid rounded-lg hover:bg-white/30 transition-colors group">
+<div class="w-[48px] h-[48px] flex items-center justify-center bg-surface-container-low/50 backdrop-blur-sm rounded-lg shadow-sm border border-white/20 group-hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">computer</span>
+</div>
+<span class="font-icon-label text-icon-label text-on-surface mt-1 drop-shadow-sm text-center line-clamp-2">This PC</span>
+</button>
+<!-- Icon: Resume -->
+<button class="flex flex-col items-center justify-center w-icon-grid h-icon-grid rounded-lg hover:bg-white/30 transition-colors group">
+<div class="w-[48px] h-[48px] flex items-center justify-center bg-surface-container-low/50 backdrop-blur-sm rounded-lg shadow-sm border border-white/20 group-hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-secondary text-[28px]" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<span class="font-icon-label text-icon-label text-on-surface mt-1 drop-shadow-sm text-center line-clamp-2">Resume.pdf</span>
+</button>
+<!-- Icon: Terminal -->
+<button class="flex flex-col items-center justify-center w-icon-grid h-icon-grid rounded-lg hover:bg-white/30 transition-colors group">
+<div class="w-[48px] h-[48px] flex items-center justify-center bg-surface-container-low/50 backdrop-blur-sm rounded-lg shadow-sm border border-white/20 group-hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-on-surface text-[28px]" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<span class="font-icon-label text-icon-label text-on-surface mt-1 drop-shadow-sm text-center line-clamp-2">Terminal</span>
+</button>
+<!-- Icon: Projects -->
+<button class="flex flex-col items-center justify-center w-icon-grid h-icon-grid rounded-lg hover:bg-white/30 transition-colors group">
+<div class="w-[48px] h-[48px] flex items-center justify-center bg-surface-container-low/50 backdrop-blur-sm rounded-lg shadow-sm border border-white/20 group-hover:shadow-md transition-shadow">
+<span class="material-symbols-outlined text-tertiary text-[28px]" style="font-variation-settings: 'FILL' 1;">folder</span>
+</div>
+<span class="font-icon-label text-icon-label text-on-surface mt-1 drop-shadow-sm text-center line-clamp-2">Projects</span>
+</button>
+</div>
+<!-- Start Menu Panel (Open State) -->
+<div class="absolute bottom-[60px] left-1/2 -translate-x-1/2 w-[600px] h-[640px] bg-surface-container-low/80 backdrop-blur-[30px] rounded-[12px] shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white/30 z-40 flex flex-col start-menu overflow-hidden">
+<!-- Search Bar Header -->
+<div class="p-6 pb-2">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-light border border-outline-variant/30 rounded-lg text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-inner" placeholder="Type here to search" type="text"/>
+</div>
+</div>
+<!-- Pinned Section (Apps/Pages) -->
+<div class="flex-1 p-6 pt-4 overflow-y-auto">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-window-title text-window-title text-on-surface font-semibold">Pinned</h3>
+<button class="font-body-sm text-body-sm text-on-surface-variant bg-surface-variant/50 hover:bg-surface-variant/80 px-2 py-1 rounded transition-colors flex items-center gap-1">
+                    All apps <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-6 gap-y-6 gap-x-2">
+<!-- Skills -->
+<button class="flex flex-col items-center justify-start group">
+<div class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-light shadow-sm group-hover:bg-primary group-hover:shadow-md transition-all duration-200 border border-outline-variant/20 group-hover:border-primary-container">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors" style="font-variation-settings: 'FILL' 1;">psychology</span>
+</div>
+<span class="mt-2 font-icon-label text-icon-label text-on-surface group-hover:text-primary transition-colors">Skills</span>
+</button>
+<!-- About Me -->
+<button class="flex flex-col items-center justify-start group">
+<div class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-light shadow-sm group-hover:bg-primary group-hover:shadow-md transition-all duration-200 border border-outline-variant/20 group-hover:border-primary-container">
+<span class="material-symbols-outlined text-secondary group-hover:text-white transition-colors" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<span class="mt-2 font-icon-label text-icon-label text-on-surface group-hover:text-primary transition-colors">About Me</span>
+</button>
+<!-- Portfolio -->
+<button class="flex flex-col items-center justify-start group">
+<div class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-light shadow-sm group-hover:bg-primary group-hover:shadow-md transition-all duration-200 border border-outline-variant/20 group-hover:border-primary-container">
+<span class="material-symbols-outlined text-tertiary group-hover:text-white transition-colors" style="font-variation-settings: 'FILL' 1;">web</span>
+</div>
+<span class="mt-2 font-icon-label text-icon-label text-on-surface group-hover:text-primary transition-colors">Portfolio</span>
+</button>
+<!-- Contact -->
+<button class="flex flex-col items-center justify-start group">
+<div class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-light shadow-sm group-hover:bg-primary group-hover:shadow-md transition-all duration-200 border border-outline-variant/20 group-hover:border-primary-container">
+<span class="material-symbols-outlined text-on-surface group-hover:text-white transition-colors" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<span class="mt-2 font-icon-label text-icon-label text-on-surface group-hover:text-primary transition-colors">Contact</span>
+</button>
+<!-- Education -->
+<button class="flex flex-col items-center justify-start group">
+<div class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-light shadow-sm group-hover:bg-primary group-hover:shadow-md transition-all duration-200 border border-outline-variant/20 group-hover:border-primary-container">
+<span class="material-symbols-outlined text-primary group-hover:text-white transition-colors" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<span class="mt-2 font-icon-label text-icon-label text-on-surface group-hover:text-primary transition-colors">Education</span>
+</button>
+<!-- Experience -->
+<button class="flex flex-col items-center justify-start group">
+<div class="w-12 h-12 flex items-center justify-center rounded-xl bg-surface-light shadow-sm group-hover:bg-primary group-hover:shadow-md transition-all duration-200 border border-outline-variant/20 group-hover:border-primary-container">
+<span class="material-symbols-outlined text-secondary group-hover:text-white transition-colors" style="font-variation-settings: 'FILL' 1;">work</span>
+</div>
+<span class="mt-2 font-icon-label text-icon-label text-on-surface group-hover:text-primary transition-colors">Experience</span>
+</button>
+</div>
+<!-- Recommended Section -->
+<div class="mt-8">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-window-title text-window-title text-on-surface font-semibold">Recommended</h3>
+<button class="font-body-sm text-body-sm text-on-surface-variant bg-surface-variant/50 hover:bg-surface-variant/80 px-2 py-1 rounded transition-colors flex items-center gap-1">
+                        More <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Recommended Item 1 -->
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/50 transition-colors text-left border border-transparent hover:border-white/40">
+<div class="w-10 h-10 flex items-center justify-center rounded shadow-sm bg-surface-light">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">article</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium truncate">Latest Blog Post</p>
+<p class="font-metadata text-metadata text-on-surface-variant truncate">Just now</p>
+</div>
+</button>
+<!-- Recommended Item 2 -->
+<button class="flex items-center gap-3 p-3 rounded-lg hover:bg-white/50 transition-colors text-left border border-transparent hover:border-white/40">
+<div class="w-10 h-10 flex items-center justify-center rounded shadow-sm bg-surface-light">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">download</span>
+</div>
+<div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium truncate">Download Resume</p>
+<p class="font-metadata text-metadata text-on-surface-variant truncate">Updated yesterday</p>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer Profile Section -->
+<div class="h-[64px] bg-surface-container-high/60 backdrop-blur-md flex items-center justify-between px-6 border-t border-white/20">
+<button class="flex items-center gap-3 hover:bg-white/40 p-2 rounded-lg transition-colors border border-transparent hover:border-white/30">
+<img class="w-8 h-8 rounded-full object-cover shadow-sm" data-alt="A highly professional and clean profile picture of a software developer. The developer is looking forward with a confident, slight smile. The lighting is soft and flattering, highlighting a modern, tech-savvy appearance. The background is a subtle, out-of-focus light-mode gradient." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUQNTfVLMNhiP9wosrKFIxhoyedP07tZdI9SSdikM1hqKOp7al84rPqiWNoK2ZASk1KXUsUjebMsLqKoh0sFliHbpBTVBUp6kW_bCyfoQKFS4tpNISk1lsNhGQq-tsEVwchY7Mxr6xinImb-cm30Ythn1fHZrVU-7e1NsjjQWXTgYFqU2uL3vkaBg2Iemw6S7zHi5oz6d1t8krVZev1wjDp1LJPzvscRJW7eC8X_i-xqvCda55zQpY"/>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Alex Dev</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/40 transition-colors text-on-surface-variant hover:text-on-surface border border-transparent hover:border-white/30">
+<span class="material-symbols-outlined">power_settings_new</span>
+</button>
+</div>
+</div>
+<!-- Taskbar (TopAppBar JSON mapped to bottom layout) -->
+<nav aria-label="Taskbar" class="fixed bottom-0 w-full h-[50px] z-50 bg-surface-container/70 backdrop-blur-[20px] shadow-[0_-2px_10px_rgba(0,0,0,0.1)] flex items-center justify-between px-4">
+<!-- Left / Brand (Hidden on taskbar, typically used in TopAppBar context, keeping structure) -->
+<div class="hidden md:flex items-center gap-2">
+<span class="text-window-title font-window-title font-bold text-on-surface">DevOS Portfolio</span>
+</div>
+<!-- Center / Navigation & Start Button -->
+<div class="flex-1 flex items-center justify-center gap-1 h-full relative">
+<!-- Start Button (Active) -->
+<button aria-label="Start Menu" class="h-[40px] w-[40px] flex items-center justify-center rounded-md hover:bg-white/10 transition-all duration-200 text-primary border-b-2 border-primary scale-95">
+<!-- Windows-like icon using SVG for precision, standard material icon fallback -->
+<svg class="text-primary fill-current" fill="none" height="24" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<rect height="9" rx="1" width="9" x="2" y="2"></rect>
+<rect height="9" rx="1" width="9" x="13" y="2"></rect>
+<rect height="9" rx="1" width="9" x="2" y="13"></rect>
+<rect height="9" rx="1" width="9" x="13" y="13"></rect>
+</svg>
+</button>
+<!-- Search Field embedded in taskbar -->
+<div class="h-[36px] w-[200px] ml-2 hidden md:flex items-center bg-surface-container-high/50 rounded-full border border-outline-variant/30 hover:bg-surface-container-high transition-colors px-3 group cursor-text">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant group-hover:text-primary transition-colors">search</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant ml-2 opacity-70">Search</span>
+</div>
+<!-- Taskbar App Icons -->
+<button aria-label="File Explorer" class="h-[40px] w-[40px] flex items-center justify-center rounded-md hover:bg-white/10 transition-all duration-200 text-on-surface-variant ml-2">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+</button>
+<button aria-label="Browser" class="h-[40px] w-[40px] flex items-center justify-center rounded-md hover:bg-white/10 transition-all duration-200 text-on-surface-variant">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">language</span>
+</button>
+<button aria-label="Terminal" class="h-[40px] w-[40px] flex items-center justify-center rounded-md hover:bg-white/10 transition-all duration-200 text-on-surface-variant">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</button>
+</div>
+<!-- Right / System Tray & Search (search_bar: on_right logic mapped to tray) -->
+<div class="flex items-center gap-3 h-full">
+<button aria-label="System Tray" class="flex items-center justify-center h-full px-2 hover:bg-white/10 transition-all duration-200 text-on-surface-variant gap-1">
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+<span class="material-symbols-outlined text-[18px] rotate-90">battery_full</span>
+</button>
+<div class="flex flex-col items-end justify-center h-full px-2 hover:bg-white/10 transition-all duration-200 cursor-default">
+<span class="font-clock text-clock text-on-surface leading-tight">10:42 AM</span>
+<span class="font-metadata text-metadata text-on-surface-variant leading-tight">10/24/2024</span>
+</div>
+<!-- Notification badge placeholder -->
+<div class="h-full flex items-center justify-center px-2 border-l border-outline-variant/20 ml-1">
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">schedule</span>
+</div>
+</div>
+</nav>
+<!-- Background Click Handler to dismiss start menu (visual only) -->
+<div class="absolute inset-0 z-30" onclick="alert('In a full app, this would close the Start Menu.')"></div>
+</body></html>

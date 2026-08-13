@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>File Explorer - Projects</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "accent-blue-gradient": "linear-gradient(135deg, #0078D4 0%, #50B0E8 100%)",
+                      "text-primary-dark": "#E0E0E0",
+                      "tertiary-container": "#bc5b00",
+                      "tertiary-fixed": "#ffdbc8",
+                      "surface-container-low": "#f3f3f3",
+                      "error-container": "#ffdad6",
+                      "bg-dark": "#121212",
+                      "surface-dark": "#1E1E1E",
+                      "primary-fixed-dim": "#a3c9ff",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#4bc1fe",
+                      "secondary": "#00658d",
+                      "outline": "#717783",
+                      "background": "#f9f9f9",
+                      "primary": "#005faa",
+                      "on-secondary-container": "#004d6c",
+                      "on-primary-fixed-variant": "#004883",
+                      "surface-light": "#FFFFFF",
+                      "primary-container": "#0078d4",
+                      "on-tertiary-fixed": "#311300",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#ffffff",
+                      "on-secondary-fixed-variant": "#004c6b",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f1f1f1",
+                      "inverse-primary": "#a3c9ff",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1a1c1c",
+                      "surface-container-high": "#e8e8e8",
+                      "primary-fixed": "#d3e3ff",
+                      "surface-container-highest": "#e2e2e2",
+                      "inverse-surface": "#2f3131",
+                      "on-background": "#1a1c1c",
+                      "outline-variant": "#c0c7d4",
+                      "secondary-fixed": "#c6e7ff",
+                      "surface-container": "#eeeeee",
+                      "on-error": "#ffffff",
+                      "error": "#ba1a1a",
+                      "surface": "#f9f9f9",
+                      "surface-tint": "#0060ab",
+                      "on-tertiary-container": "#ffffff",
+                      "on-tertiary-fixed-variant": "#743500",
+                      "text-primary-light": "#1A1A1A",
+                      "terminal-green": "#4E9A06",
+                      "tertiary": "#974700",
+                      "surface-dim": "#dadada",
+                      "tertiary-fixed-dim": "#ffb689",
+                      "surface-variant": "#e2e2e2",
+                      "on-surface-variant": "#404752",
+                      "secondary-fixed-dim": "#81cfff",
+                      "surface-bright": "#f9f9f9",
+                      "on-secondary-fixed": "#001e2d",
+                      "on-primary-fixed": "#001c39",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "window-padding": "24px",
+                      "taskbar-height": "50px",
+                      "icon-grid": "80px",
+                      "desktop-margin": "24px"
+              },
+              "fontFamily": {
+                      "window-title": [
+                              "manrope"
+                      ],
+                      "icon-label": [
+                              "inter"
+                      ],
+                      "clock": [
+                              "inter"
+                      ],
+                      "body-sm": [
+                              "inter"
+                      ],
+                      "body-md": [
+                              "inter"
+                      ],
+                      "metadata": [
+                              "inter"
+                      ]
+              },
+              "fontSize": {
+                      "window-title": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "icon-label": [
+                              "12px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "clock": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "22px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "metadata": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        
+        .mica-bg {
+            background-color: rgba(243, 243, 243, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .explorer-content-bg {
+            background-color: rgba(255, 255, 255, 0.6);
+        }
+      </style>
+</head>
+<body class="bg-background h-screen w-screen overflow-hidden flex flex-col font-body-md text-on-surface">
+<!-- Wallpaper Background -->
+<div class="absolute inset-0 z-0">
+<div class="bg-cover bg-center w-full h-full opacity-60" data-alt="A serene, minimalist digital wallpaper featuring smooth, flowing abstract gradients in shades of soft light blue, pristine white, and subtle warm gray. The composition implies a modern, high-tech operating system desktop environment, lit by soft, diffused daylight. The style is clean, corporate, and deeply relaxing, perfectly suited as a backdrop for a professional developer portfolio interface." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAGpXyVo2VUzHDwT5gPz1oB5RXoXL9OYOgmH3vP3AnNPsDCA1CGD1r23HKujXkrkBCD8z1fLep5vU83_eqasKqGlv6AhYOn9ZeP61mqJLh2GNNrp5IS6v5AGhXCsLVKTMJKaH6QPU7AQj2hDqzsiJexylC6pQ9956bUHJ634U7zxYYPAse6NA_-8X46KBFqt9MWmdSN4JGiUA2fJ5t_nYaetxp9BS9NO-a99fj9JnzhgPv3XXPATAYJ')"></div>
+</div>
+<!-- Main Desktop Area -->
+<main class="flex-1 relative z-10 p-desktop-margin flex items-center justify-center pointer-events-none">
+<!-- File Explorer Window (Draggable style) -->
+<div class="w-full max-w-5xl h-[70vh] rounded-xl overflow-hidden shadow-[0_12px_24px_rgba(0,0,0,0.1),_0_0_0_1px_rgba(255,255,255,0.2)_inset] mica-bg flex flex-col pointer-events-auto transform transition-transform duration-300 hover:scale-[1.005]">
+<!-- Title Bar -->
+<div class="h-10 flex items-center justify-between px-4 bg-transparent border-b border-white/20 select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="folder_open" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="font-window-title text-window-title text-on-surface">Projects</span>
+</div>
+<!-- Window Controls -->
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-black/5 transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="remove">remove</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-black/5 transition-colors">
+<span class="material-symbols-outlined text-[14px]" data-icon="crop_square">crop_square</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-error hover:text-on-error transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+</button>
+</div>
+</div>
+<!-- Toolbar & Address Bar -->
+<div class="px-2 py-2 flex items-center gap-2 border-b border-white/20 bg-surface-container-low/50">
+<!-- Navigation Actions -->
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-black/5 text-on-surface-variant transition-colors disabled:opacity-50">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-black/5 text-on-surface-variant transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-black/5 text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_upward">arrow_upward</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-black/5 text-on-surface-variant transition-colors ml-1">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+</button>
+</div>
+<!-- Breadcrumb / Address Bar -->
+<div class="flex-1 flex items-center h-8 bg-surface-light/80 rounded-DEFAULT border border-black/5 px-3 shadow-sm overflow-hidden">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2" data-icon="desktop_windows">desktop_windows</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mx-1" data-icon="chevron_right">chevron_right</span>
+<span class="font-body-sm text-body-sm text-on-surface cursor-pointer hover:bg-black/5 px-1 rounded-DEFAULT">This PC</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mx-1" data-icon="chevron_right">chevron_right</span>
+<span class="font-body-sm text-body-sm text-on-surface cursor-pointer hover:bg-black/5 px-1 rounded-DEFAULT">Portfolio</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mx-1" data-icon="chevron_right">chevron_right</span>
+<span class="font-body-sm text-body-sm text-on-surface cursor-pointer bg-black/5 px-1 rounded-DEFAULT">Projects</span>
+</div>
+<!-- Search -->
+<div class="w-64 h-8 bg-surface-light/80 rounded-DEFAULT border border-black/5 flex items-center px-3 shadow-sm">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm p-0 w-full placeholder:text-outline" placeholder="Search Projects" type="text"/>
+</div>
+</div>
+<!-- Content Area (Sidebar + Main) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Sidebar -->
+<div class="w-64 border-r border-white/20 bg-surface-container-low/30 overflow-y-auto py-2 px-1">
+<!-- Quick Access Section -->
+<div class="mb-4">
+<div class="flex items-center px-3 py-1 mb-1 text-on-surface-variant font-metadata text-metadata">
+<span class="material-symbols-outlined text-[14px] mr-2" data-icon="expand_more">expand_more</span>
+                            Quick access
+                        </div>
+<ul class="space-y-0.5">
+<li>
+<button class="w-full flex items-center px-7 py-1.5 rounded-DEFAULT bg-primary/10 text-primary transition-colors text-left">
+<span class="material-symbols-outlined text-[16px] mr-3" data-icon="folder_special" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder_special</span>
+<span class="font-body-sm text-body-sm">Projects</span>
+</button>
+</li>
+<li>
+<button class="w-full flex items-center px-7 py-1.5 rounded-DEFAULT hover:bg-black/5 transition-colors text-left text-on-surface">
+<span class="material-symbols-outlined text-[16px] mr-3 text-tertiary-container" data-icon="description" data-weight="fill" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-body-sm text-body-sm">CV</span>
+</button>
+</li>
+<li>
+<button class="w-full flex items-center px-7 py-1.5 rounded-DEFAULT hover:bg-black/5 transition-colors text-left text-on-surface">
+<span class="material-symbols-outlined text-[16px] mr-3 text-secondary" data-icon="workspace_premium" data-weight="fill" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-body-sm text-body-sm">Certificates</span>
+</button>
+</li>
+</ul>
+</div>
+<div class="h-px bg-white/20 my-2 mx-4"></div>
+<!-- This PC Section -->
+<div>
+<div class="flex items-center px-3 py-1 mb-1 text-on-surface-variant font-metadata text-metadata">
+<span class="material-symbols-outlined text-[14px] mr-2" data-icon="expand_more">expand_more</span>
+                            This PC
+                        </div>
+<ul class="space-y-0.5">
+<li>
+<button class="w-full flex items-center px-7 py-1.5 rounded-DEFAULT hover:bg-black/5 transition-colors text-left text-on-surface">
+<span class="material-symbols-outlined text-[16px] mr-3 text-on-surface-variant" data-icon="terminal">terminal</span>
+<span class="font-body-sm text-body-sm">C:\ DevOS</span>
+</button>
+</li>
+<li>
+<button class="w-full flex items-center px-7 py-1.5 rounded-DEFAULT hover:bg-black/5 transition-colors text-left text-on-surface">
+<span class="material-symbols-outlined text-[16px] mr-3 text-on-surface-variant" data-icon="language">language</span>
+<span class="font-body-sm text-body-sm">Network</span>
+</button>
+</li>
+</ul>
+</div>
+</div>
+<!-- Main Folder View -->
+<div class="flex-1 explorer-content-bg p-window-padding overflow-y-auto">
+<div class="font-metadata text-metadata text-on-surface-variant mb-4 border-b border-black/5 pb-2">
+                        Folders (3)
+                    </div>
+<!-- Bento Grid for Folders -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+<!-- Folder Item 1 -->
+<div class="group bg-surface-light/50 hover:bg-white/80 border border-black/5 hover:border-black/10 hover:shadow-sm rounded-lg p-4 flex flex-col items-center justify-center gap-3 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[64px] text-primary" data-icon="folder" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder</span>
+<span class="font-body-sm text-body-sm text-center text-on-surface group-hover:text-primary transition-colors">Web Projects</span>
+</div>
+<!-- Folder Item 2 -->
+<div class="group bg-surface-light/50 hover:bg-white/80 border border-black/5 hover:border-black/10 hover:shadow-sm rounded-lg p-4 flex flex-col items-center justify-center gap-3 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[64px] text-secondary" data-icon="folder_zip" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder_zip</span>
+<span class="font-body-sm text-body-sm text-center text-on-surface group-hover:text-secondary transition-colors">Mobile Apps</span>
+</div>
+<!-- Folder Item 3 -->
+<div class="group bg-surface-light/50 hover:bg-white/80 border border-black/5 hover:border-black/10 hover:shadow-sm rounded-lg p-4 flex flex-col items-center justify-center gap-3 transition-all cursor-pointer">
+<span class="material-symbols-outlined text-[64px] text-tertiary-container" data-icon="folder_shared" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder_shared</span>
+<span class="font-body-sm text-body-sm text-center text-on-surface group-hover:text-tertiary-container transition-colors">Open Source</span>
+</div>
+</div>
+<div class="font-metadata text-metadata text-on-surface-variant mt-8 mb-4 border-b border-black/5 pb-2">
+                        Recent Files
+                    </div>
+<!-- File List View (Simplified) -->
+<div class="space-y-1">
+<div class="flex items-center gap-4 p-2 hover:bg-white/50 rounded-DEFAULT cursor-pointer border border-transparent hover:border-black/5">
+<span class="material-symbols-outlined text-primary" data-icon="code" data-weight="fill" style="font-variation-settings: 'FILL' 1;">code</span>
+<span class="font-body-sm text-body-sm text-on-surface flex-1">main.js</span>
+<span class="font-metadata text-metadata text-on-surface-variant w-32">Today, 2:30 PM</span>
+<span class="font-metadata text-metadata text-on-surface-variant w-24">JavaScript File</span>
+<span class="font-metadata text-metadata text-on-surface-variant w-16 text-right">14 KB</span>
+</div>
+<div class="flex items-center gap-4 p-2 hover:bg-white/50 rounded-DEFAULT cursor-pointer border border-transparent hover:border-black/5">
+<span class="material-symbols-outlined text-tertiary-container" data-icon="html" data-weight="fill" style="font-variation-settings: 'FILL' 1;">html</span>
+<span class="font-body-sm text-body-sm text-on-surface flex-1">index.html</span>
+<span class="font-metadata text-metadata text-on-surface-variant w-32">Yesterday</span>
+<span class="font-metadata text-metadata text-on-surface-variant w-24">HTML Document</span>
+<span class="font-metadata text-metadata text-on-surface-variant w-16 text-right">4 KB</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Status Bar -->
+<div class="h-6 bg-surface-container-low/80 border-t border-black/5 flex items-center px-4 font-metadata text-metadata text-on-surface-variant">
+<span>3 items</span>
+<span class="mx-2 border-l border-black/10 h-3"></span>
+<span>1 item selected</span>
+</div>
+</div>
+</main>
+<!-- SideNavBar Shell Component (Semantic Match: Projects) -->
+<nav class="fixed bottom-[60px] left-6 rounded-xl w-72 z-40 bg-surface-container-low/80 dark:bg-surface-dark/80 backdrop-blur-[30px] bg-surface-container-high/90 dark:bg-surface-dark/95 shadow-2xl ring-1 ring-white/20 shadow-2xl flex flex-col p-4 space-y-2 md:flex hidden">
+<!-- Header -->
+<div class="flex items-center gap-4 mb-4 pb-4 border-b border-white/10">
+<div class="w-12 h-12 rounded-full overflow-hidden bg-primary/20 flex-shrink-0 flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot avatar of a software developer with a neutral background, styled perfectly for a modern digital portfolio." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArDkpq6fCpR335mclvsuLde-jzUYO5rE8s0sJ941w-95YUGdxLlF5a34izdNFDzEv8683qHekPXOwQ2Aiuq5Gl97IrE_Vgb6W9pojTpUIH5KMfjcbadThB4aB7xJ3SGQThDqm2BQHKTHPyJHbPOv1y8409PdIu47BGpRB0LG6lXj1cU-6642jJZMy_Vz3VVsOkhoHzUv3kI0W_3FJdTkXRdccYwwXoWUIuFWF1p75DOnptMJ3d8ANh"/>
+</div>
+<div>
+<h2 class="text-window-title font-window-title font-bold text-on-surface dark:text-text-primary-dark">Alex Dev</h2>
+<p class="text-metadata font-metadata text-on-surface-variant">Full Stack Engineer</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/50 dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-body-md text-body-md">Home</span>
+</a>
+<!-- Active Link (Projects) -->
+<a class="flex items-center gap-3 px-4 py-2 bg-primary/10 dark:bg-primary-container/20 text-primary dark:text-primary-fixed-dim rounded-lg hover:bg-surface-variant/50 dark:hover:bg-white/5 translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="font-body-md text-body-md font-semibold">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/50 dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-body-md text-body-md">Resume</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/50 dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-body-md text-body-md">Terminal</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant/50 dark:hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<!-- CTA -->
+<div class="mt-auto pt-4">
+<button class="w-full py-2 bg-primary text-on-primary rounded-lg font-body-sm text-body-sm hover:brightness-110 transition-all shadow-sm">
+                Contact Me
+             </button>
+</div>
+</nav>
+<!-- TopAppBar Shell Component (Taskbar Replacement for Mobile) -->
+<div class="fixed bottom-0 w-full h-[50px] z-50 bg-surface-container/70 dark:bg-bg-dark/70 backdrop-blur-xl bg-surface-container/70 dark:bg-bg-dark/80 backdrop-blur-[20px] shadow-[0_-2px_10px_rgba(0,0,0,0.1)] shadow-sm dark:shadow-md fixed bottom-0 left-0 right-0 h-[50px] flex items-center justify-between px-4 z-50 md:hidden flex">
+<div class="text-window-title font-window-title font-bold text-on-surface dark:text-text-primary-dark">DevOS Portfolio</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant" data-icon="volume_up">volume_up</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant" data-icon="battery_full">battery_full</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant" data-icon="language">language</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-outline-variant" data-icon="schedule">schedule</span>
+</div>
+</div>
+<!-- TopAppBar Shell Component (Actual Windows Taskbar representation for Desktop) -->
+<div class="fixed bottom-0 w-full h-[50px] z-50 bg-surface-container/70 dark:bg-bg-dark/70 backdrop-blur-xl bg-surface-container/70 dark:bg-bg-dark/80 backdrop-blur-[20px] shadow-[0_-2px_10px_rgba(0,0,0,0.1)] shadow-sm dark:shadow-md fixed bottom-0 left-0 right-0 h-[50px] items-center justify-between px-4 z-50 hidden md:flex">
+<!-- Search/Start (Left side conceptually) -->
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[24px] text-primary" data-icon="grid_view" data-weight="fill" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+</button>
+<div class="w-48 h-8 bg-surface-light/50 border border-black/5 rounded-DEFAULT flex items-center px-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2" data-icon="search">search</span>
+<span class="text-metadata font-metadata text-on-surface-variant">Search</span>
+</div>
+</div>
+<!-- Center Apps (Navigation) -->
+<div class="flex items-center gap-1 justify-center absolute left-1/2 transform -translate-x-1/2">
+<button class="w-10 h-10 flex items-center justify-center hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded-DEFAULT text-on-surface-variant dark:text-outline-variant" title="Home">
+<span class="material-symbols-outlined text-[20px]" data-icon="home">home</span>
+</button>
+<!-- Active App -->
+<button class="w-10 h-10 flex items-center justify-center hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded-DEFAULT text-primary dark:text-primary-fixed-dim border-b-2 border-primary scale-95 transition-transform" title="Projects">
+<span class="material-symbols-outlined text-[20px]" data-icon="folder_open" data-weight="fill" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded-DEFAULT text-on-surface-variant dark:text-outline-variant" title="Terminal">
+<span class="material-symbols-outlined text-[20px]" data-icon="terminal">terminal</span>
+</button>
+</div>
+<!-- System Tray (Right) -->
+<div class="flex items-center gap-2">
+<div class="flex items-center gap-1 hover:bg-white/10 dark:hover:bg-white/5 p-1 rounded-DEFAULT transition-all cursor-default">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant dark:text-outline-variant" data-icon="expand_less">expand_less</span>
+</div>
+<div class="flex items-center gap-2 hover:bg-white/10 dark:hover:bg-white/5 px-2 py-1 rounded-DEFAULT transition-all cursor-default">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant dark:text-outline-variant" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant dark:text-outline-variant" data-icon="volume_up">volume_up</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant dark:text-outline-variant" data-icon="battery_full">battery_full</span>
+</div>
+<div class="flex flex-col items-end hover:bg-white/10 dark:hover:bg-white/5 px-2 py-0.5 rounded-DEFAULT transition-all cursor-default">
+<span class="font-clock text-clock text-on-surface">10:42 AM</span>
+<span class="font-clock text-[10px] text-on-surface-variant">10/24/2024</span>
+</div>
+</div>
+</div>
+</body></html>

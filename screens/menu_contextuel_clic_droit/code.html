@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Right-Click Context Menu - DevOS Portfolio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "accent-blue-gradient": "linear-gradient(135deg, #0078D4 0%, #50B0E8 100%)",
+                        "text-primary-dark": "#E0E0E0",
+                        "tertiary-container": "#bc5b00",
+                        "tertiary-fixed": "#ffdbc8",
+                        "surface-container-low": "#f3f3f3",
+                        "error-container": "#ffdad6",
+                        "bg-dark": "#121212",
+                        "surface-dark": "#1E1E1E",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#4bc1fe",
+                        "secondary": "#00658d",
+                        "outline": "#717783",
+                        "background": "#f9f9f9",
+                        "primary": "#005faa",
+                        "on-secondary-container": "#004d6c",
+                        "on-primary-fixed-variant": "#004883",
+                        "surface-light": "#FFFFFF",
+                        "primary-container": "#0078d4",
+                        "on-tertiary-fixed": "#311300",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#ffffff",
+                        "on-secondary-fixed-variant": "#004c6b",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f1f1f1",
+                        "inverse-primary": "#a3c9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "surface-container-high": "#e8e8e8",
+                        "primary-fixed": "#d3e3ff",
+                        "surface-container-highest": "#e2e2e2",
+                        "inverse-surface": "#2f3131",
+                        "on-background": "#1a1c1c",
+                        "outline-variant": "#c0c7d4",
+                        "secondary-fixed": "#c6e7ff",
+                        "surface-container": "#eeeeee",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface": "#f9f9f9",
+                        "surface-tint": "#0060ab",
+                        "on-tertiary-container": "#ffffff",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "text-primary-light": "#1A1A1A",
+                        "terminal-green": "#4E9A06",
+                        "tertiary": "#974700",
+                        "surface-dim": "#dadada",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "surface-variant": "#e2e2e2",
+                        "on-surface-variant": "#404752",
+                        "secondary-fixed-dim": "#81cfff",
+                        "surface-bright": "#f9f9f9",
+                        "on-secondary-fixed": "#001e2d",
+                        "on-primary-fixed": "#001c39",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "window-padding": "24px",
+                        "taskbar-height": "50px",
+                        "icon-grid": "80px",
+                        "desktop-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "window-title": ["manrope"],
+                        "icon-label": ["inter"],
+                        "clock": ["inter"],
+                        "body-sm": ["inter"],
+                        "body-md": ["inter"],
+                        "metadata": ["inter"]
+                    },
+                    "fontSize": {
+                        "window-title": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "icon-label": ["12px", { "lineHeight": "14px", "fontWeight": "400" }],
+                        "clock": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "metadata": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background w-full h-screen overflow-hidden relative" data-alt="A serene, high-resolution desktop wallpaper featuring a minimalist abstract 3D landscape with smooth, flowing curves and a soft, airy light-mode color palette consisting of pale blues, soft whites, and subtle grey tones. The lighting is diffused and atmospheric, resembling a polished, modern operating system background designed for clarity and focus." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwGQ6eiLfYg6FHqR3JfpefbjYIqGOdMfZmFKflwozQ8BUCIufVGaJQ6IWSZUjTW0fKRiZAp39Ik5BBHvl9etEriuqbGRIYAEDSpWECyajVQIm2x64gBTlPX7HMtXbzzELYSVtj1hGTljCWuvhhVh_I5qLNbIyhD2FizxZcCHK8lUjlp-hk2VZ_F65Ec4vt-YHhf___ibk83u9TXsnpMd4JhcX07k2sh-tsGyhGViOuz69vxACwgsl-'); background-size: cover; background-position: center;">
+<!-- Desktop Icons Area -->
+<main class="absolute inset-0 p-desktop-margin z-0">
+<div class="grid grid-cols-[repeat(auto-fill,80px)] grid-rows-[repeat(auto-fill,80px)] gap-4 h-full content-start">
+<div class="w-[80px] h-[80px] flex flex-col items-center justify-start gap-1 p-2 rounded-lg hover:bg-surface-variant/30 cursor-pointer transition-colors group">
+<div class="w-[48px] h-[48px] bg-primary/10 rounded flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="folder_open" style="font-size: 32px; font-variation-settings: 'FILL' 1;">folder_open</span>
+</div>
+<span class="text-icon-label font-icon-label text-on-surface text-center leading-tight line-clamp-2 drop-shadow-sm">Projects</span>
+</div>
+</div>
+</main>
+<!-- Context Menu -->
+<!-- Positioning arbitrarily on the desktop to simulate right-click location -->
+<div class="absolute top-[250px] left-[400px] w-[220px] bg-surface-container-low/80 backdrop-blur-[20px] rounded-lg shadow-2xl ring-1 ring-white/20 z-50 flex flex-col py-1 overflow-hidden" style="box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1), 0 4px 10px -2px rgba(0,0,0,0.05);">
+<!-- Hovered Item -->
+<button class="w-full text-left px-3 py-2 flex items-center gap-3 bg-primary/10 text-primary group transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="refresh">refresh</span>
+<span class="text-body-sm font-body-sm">Refresh</span>
+</button>
+<div class="h-[1px] w-full bg-outline-variant/30 my-1"></div>
+<!-- Normal Items -->
+<button class="w-full text-left px-3 py-2 flex items-center gap-3 text-on-surface hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="create_new_folder">create_new_folder</span>
+<span class="text-body-sm font-body-sm">New Folder</span>
+</button>
+<div class="h-[1px] w-full bg-outline-variant/30 my-1"></div>
+<button class="w-full text-left px-3 py-2 flex items-center gap-3 text-on-surface hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="brush">brush</span>
+<span class="text-body-sm font-body-sm">Personalize</span>
+</button>
+<button class="w-full text-left px-3 py-2 flex items-center gap-3 text-on-surface hover:bg-surface-variant/50 transition-colors">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant" data-icon="display_settings">display_settings</span>
+<span class="text-body-sm font-body-sm">Properties</span>
+</button>
+</div>
+<!-- TopAppBar / Taskbar Shell -->
+<nav aria-label="Taskbar" class="fixed bottom-0 w-full h-[50px] z-50 bg-surface-container/70 backdrop-blur-xl shadow-sm border-t border-white/20 flex items-center justify-between px-4">
+<!-- Start Button / Logo Area -->
+<div class="flex items-center">
+<button class="h-10 px-3 rounded-md hover:bg-white/10 transition-all duration-200 flex items-center justify-center">
+<span class="text-window-title font-window-title font-bold text-on-surface">DevOS Portfolio</span>
+</button>
+</div>
+<!-- System Tray -->
+<div class="flex items-center h-full space-x-1">
+<div class="flex items-center text-on-surface-variant hover:bg-white/10 px-2 h-10 rounded-md transition-all duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[18px] mx-[2px]" data-icon="wifi">wifi</span>
+<span class="material-symbols-outlined text-[18px] mx-[2px]" data-icon="volume_up">volume_up</span>
+<span class="material-symbols-outlined text-[18px] mx-[2px]" data-icon="battery_full">battery_full</span>
+</div>
+<div class="flex items-center text-on-surface-variant hover:bg-white/10 px-2 h-10 rounded-md transition-all duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-[18px] mr-1" data-icon="language">language</span>
+<span class="text-metadata font-metadata">ENG</span>
+</div>
+<div class="flex flex-col items-end justify-center text-on-surface-variant hover:bg-white/10 px-2 h-10 rounded-md transition-all duration-200 cursor-pointer">
+<span class="text-metadata font-metadata leading-none mb-[2px]">10:42 AM</span>
+<span class="text-[10px] font-metadata leading-none opacity-80">10/24/2024</span>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Hidden per instructions to use TopAppBar on Desktop intent, keeping structural adherence) -->
+<div class="hidden"></div>
+</body></html>

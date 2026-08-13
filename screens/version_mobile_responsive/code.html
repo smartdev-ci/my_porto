@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>DevOS - Mobile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "accent-blue-gradient": "linear-gradient(135deg, #0078D4 0%, #50B0E8 100%)",
+                      "text-primary-dark": "#E0E0E0",
+                      "tertiary-container": "#bc5b00",
+                      "tertiary-fixed": "#ffdbc8",
+                      "surface-container-low": "#f3f3f3",
+                      "error-container": "#ffdad6",
+                      "bg-dark": "#121212",
+                      "surface-dark": "#1E1E1E",
+                      "primary-fixed-dim": "#a3c9ff",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#4bc1fe",
+                      "secondary": "#00658d",
+                      "outline": "#717783",
+                      "background": "#f9f9f9",
+                      "primary": "#005faa",
+                      "on-secondary-container": "#004d6c",
+                      "on-primary-fixed-variant": "#004883",
+                      "surface-light": "#FFFFFF",
+                      "primary-container": "#0078d4",
+                      "on-tertiary-fixed": "#311300",
+                      "on-primary": "#ffffff",
+                      "on-primary-container": "#ffffff",
+                      "on-secondary-fixed-variant": "#004c6b",
+                      "on-error-container": "#93000a",
+                      "inverse-on-surface": "#f1f1f1",
+                      "inverse-primary": "#a3c9ff",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1a1c1c",
+                      "surface-container-high": "#e8e8e8",
+                      "primary-fixed": "#d3e3ff",
+                      "surface-container-highest": "#e2e2e2",
+                      "inverse-surface": "#2f3131",
+                      "on-background": "#1a1c1c",
+                      "outline-variant": "#c0c7d4",
+                      "secondary-fixed": "#c6e7ff",
+                      "surface-container": "#eeeeee",
+                      "on-error": "#ffffff",
+                      "error": "#ba1a1a",
+                      "surface": "#f9f9f9",
+                      "surface-tint": "#0060ab",
+                      "on-tertiary-container": "#ffffff",
+                      "on-tertiary-fixed-variant": "#743500",
+                      "text-primary-light": "#1A1A1A",
+                      "terminal-green": "#4E9A06",
+                      "tertiary": "#974700",
+                      "surface-dim": "#dadada",
+                      "tertiary-fixed-dim": "#ffb689",
+                      "surface-variant": "#e2e2e2",
+                      "on-surface-variant": "#404752",
+                      "secondary-fixed-dim": "#81cfff",
+                      "surface-bright": "#f9f9f9",
+                      "on-secondary-fixed": "#001e2d",
+                      "on-primary-fixed": "#001c39",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "window-padding": "24px",
+                      "taskbar-height": "50px",
+                      "icon-grid": "80px",
+                      "desktop-margin": "24px"
+              },
+              "fontFamily": {
+                      "window-title": ["manrope"],
+                      "icon-label": ["inter"],
+                      "clock": ["inter"],
+                      "body-sm": ["inter"],
+                      "body-md": ["inter"],
+                      "metadata": ["inter"]
+              },
+              "fontSize": {
+                      "window-title": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "icon-label": ["12px", {"lineHeight": "14px", "fontWeight": "400"}],
+                      "clock": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+                      "metadata": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "400"}]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            /* Fallback wallpaper gradient for light mode */
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            background-attachment: fixed;
+        }
+        /* Mobile Specific Tweaks for Fluent UI feel */
+        .glass-panel {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.05);
+        }
+        .app-icon-container {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+        .app-icon-container:active {
+            transform: scale(0.95);
+        }
+        
+        /* Full screen modal animation */
+        .modal-enter {
+            transform: translateY(100%);
+        }
+        .modal-enter-active {
+            transform: translateY(0);
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .modal-exit {
+            transform: translateY(0);
+        }
+        .modal-exit-active {
+            transform: translateY(100%);
+            transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-md h-[100dvh] w-full overflow-hidden relative flex flex-col antialiased">
+<!-- Background Wallpaper -->
+<div class="absolute inset-0 bg-cover bg-center bg-no-repeat z-[-1] opacity-60" data-alt="A serene, abstract digital wallpaper in light mode. Soft, flowing waves of light blue, white, and pale cyan blending together seamlessly. The lighting is diffused and airy, creating a calm, uncluttered backdrop ideal for a modern interface. Smooth gradients and subtle volumetric lighting effects evoke a high-end corporate operating system aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0fmfw2ohwu6vDY4ZxR38s_tVb7et-dJUPPQOvnV0UyDxYp0i-rY012brZehVN9oKmdB_OO11SKikvU1SGc5A7P5NKQ7oCCCC3Dj31P34BNKqyjUGSdG0IL4tFdgyNzX3_1eJBURLwHbeFFFne8zX4cHKAYw-F2dFhWUuZLS8O2iHyd6TqOpmxv_1C8SPgAMzGAHHSKGXAcD-hVMEJj83gGVwni5DRULGJw9rvpUqeDax-RLJfSFje')"></div>
+<!-- Main Desktop Area (Scrollable on Mobile) -->
+<main class="flex-1 w-full overflow-y-auto overflow-x-hidden pt-6 pb-[70px] px-4" id="main-desktop">
+<!-- Top Profile Card -->
+<div class="glass-panel rounded-xl p-4 mb-8 flex items-center gap-4 cursor-pointer" onclick="openModal('profileModal')">
+<img alt="Alex Dev" class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm" data-alt="A professional headshot avatar of a software developer. The individual is looking directly at the camera with a confident, welcoming expression. The lighting is bright and even, set against a soft, light-grey gradient background that fits a light-mode UI. High resolution, modern tech industry styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDQ6vqDro9eTPRyLPcm-lyGkot_gMWu6P-V1I-wGJr20bFhv8S3Y_I8mkHM0xuvRJI5M08RYptZt2fiJRjTp92ItXLmqgeBNfKuI7SPy9esyZopDruNrl3m3TQQ20frCSVGLd8PIrBqs8m-RpBrL7Re0I1K9Ugk24o8eyR4-h6-ladXm04Ms3qyqaa_CYuEcZq3aaNusG8hNlq7tTati3YRgVQ0295pFg76v-SNA4H28c_mGdKmNzH"/>
+<div>
+<h1 class="text-window-title font-window-title text-on-surface">Alex Dev</h1>
+<p class="text-metadata font-metadata text-on-surface-variant">Full Stack Engineer</p>
+</div>
+<div class="ml-auto text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">info</span>
+</div>
+</div>
+<!-- Desktop App Grid (3 Columns) -->
+<div class="grid grid-cols-3 gap-y-6 gap-x-2 w-full max-w-[320px] mx-auto">
+<!-- App 1: Projects -->
+<div class="flex flex-col items-center gap-2 cursor-pointer" onclick="openModal('projectsModal')">
+<div class="app-icon-container">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+</div>
+<span class="text-icon-label font-icon-label text-on-surface drop-shadow-sm bg-white/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Projects</span>
+</div>
+<!-- App 2: Resume -->
+<div class="flex flex-col items-center gap-2 cursor-pointer">
+<div class="app-icon-container">
+<span class="material-symbols-outlined text-tertiary-container text-3xl" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<span class="text-icon-label font-icon-label text-on-surface drop-shadow-sm bg-white/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Resume</span>
+</div>
+<!-- App 3: Terminal -->
+<div class="flex flex-col items-center gap-2 cursor-pointer">
+<div class="app-icon-container bg-bg-dark">
+<span class="material-symbols-outlined text-terminal-green text-3xl">terminal</span>
+</div>
+<span class="text-icon-label font-icon-label text-on-surface drop-shadow-sm bg-white/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Terminal</span>
+</div>
+<!-- App 4: Experience -->
+<div class="flex flex-col items-center gap-2 cursor-pointer">
+<div class="app-icon-container">
+<span class="material-symbols-outlined text-secondary text-3xl" style="font-variation-settings: 'FILL' 1;">work</span>
+</div>
+<span class="text-icon-label font-icon-label text-on-surface drop-shadow-sm bg-white/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Experience</span>
+</div>
+<!-- App 5: Contact -->
+<div class="flex flex-col items-center gap-2 cursor-pointer">
+<div class="app-icon-container">
+<span class="material-symbols-outlined text-primary-container text-3xl" style="font-variation-settings: 'FILL' 1;">mail</span>
+</div>
+<span class="text-icon-label font-icon-label text-on-surface drop-shadow-sm bg-white/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Contact</span>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile Taskbar Equivalent) -->
+<!-- JSON INSTRUCTIONS: name: TopAppBar (repurposed for mobile bottom nav per instructions) -->
+<nav class="fixed bottom-0 left-0 right-0 h-[60px] flex items-center justify-between px-6 z-50 bg-surface-container/80 backdrop-blur-xl shadow-[0_-2px_10px_rgba(0,0,0,0.1)]">
+<!-- Home (Active) -->
+<button class="flex flex-col items-center justify-center w-12 h-full text-primary border-t-2 border-primary pt-1">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-metadata font-metadata hidden">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 h-full text-on-surface-variant hover:bg-white/10 transition-all duration-200">
+<span class="material-symbols-outlined text-[24px]">folder_open</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 h-full text-on-surface-variant hover:bg-white/10 transition-all duration-200">
+<span class="material-symbols-outlined text-[24px]">terminal</span>
+</button>
+<button class="flex flex-col items-center justify-center w-12 h-full text-on-surface-variant hover:bg-white/10 transition-all duration-200">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+</nav>
+<!-- FULL SCREEN MODAL: Projects -->
+<div class="fixed inset-0 z-[100] glass-panel bg-surface/95 hidden flex-col" id="projectsModal">
+<!-- Sticky Header -->
+<div class="flex items-center justify-between px-4 h-[60px] border-b border-surface-variant/50 sticky top-0 bg-surface/80 backdrop-blur-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant/50 active:scale-95 transition-all text-on-surface" onclick="closeModal('projectsModal')">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-window-title font-window-title font-semibold text-on-surface">Projects</h2>
+<div class="w-10 h-10"></div> <!-- Spacer for centering -->
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-4 pb-20 space-y-4">
+<!-- Project Card 1 -->
+<div class="bg-surface-light rounded-xl p-4 shadow-sm border border-surface-variant/30 flex flex-col gap-3">
+<div class="w-full h-32 rounded-lg bg-cover bg-center" data-alt="A sleek, modern dashboard interface design for a financial technology application. Light mode aesthetic with crisp charts, rounded corners, and a predominantly white and light blue color palette. Professional, high-fidelity UI mockup." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsi2VQOIz0sP_NTevpEV9gI3lT_vfyhvMbu7X9ZHu0hAUYYJ5UK-8PD4L8Hf2ugu5642zqyYmH8loCuxxZCUZBELOk8Jbk4QYunmVbpbpdaYgSf3W-ZLQuHANhdW56KzsBnwrzbBQKbFvupt6sZRhTQ0LSedRj_RGofnDESeD1Qj-Ya2DK4DtfkGMxDBow8ND2GTb4wbQNVPXG3_MFsybkRl5kU-4YKPtxlERxCSo3AIQghx7rUdCY')"></div>
+<div>
+<h3 class="text-body-md font-window-title font-bold text-on-surface">FinTech Dashboard</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">React, Tailwind, Node.js</p>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="bg-surface-light rounded-xl p-4 shadow-sm border border-surface-variant/30 flex flex-col gap-3">
+<div class="w-full h-32 rounded-lg bg-cover bg-center" data-alt="A minimalist e-commerce mobile application screen showing a product details page. Soft lighting, clean typography, and a refined layout highlighting a fictional premium lifestyle product. White background with subtle grey structural lines." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCJIPOCfmJL661XXsG7eyvejZcAa4QpfkkpLJ_NdswZ_gX1GNQ7mwdBUc40L6zw9_RpQmsjvJGtHzF6KMeb1EEijWlmHLbiXU7XaMBWZHHnuoX4mWvWG_pYmCeQh5S1jfgx-ii1XYdEcg7sBvANzTDcYnIuM7TPCr7GlJ4Aj0t562quLYe4sBA1tx4HNLk6_9ZnarvrFJ_Zr8mMUw4_1EstGeNTxIyKo3uUjFmHsBKj4ctLV0s7MUTh')"></div>
+<div>
+<h3 class="text-body-md font-window-title font-bold text-on-surface">E-Commerce App</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Flutter, Firebase</p>
+</div>
+</div>
+</div>
+</div>
+<!-- FULL SCREEN MODAL: Profile / System Info -->
+<div class="fixed inset-0 z-[100] glass-panel bg-surface/95 hidden flex-col" id="profileModal">
+<!-- Sticky Header -->
+<div class="flex items-center justify-between px-4 h-[60px] border-b border-surface-variant/50 sticky top-0 bg-surface/80 backdrop-blur-md">
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-variant/50 active:scale-95 transition-all text-on-surface" onclick="closeModal('profileModal')">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h2 class="text-window-title font-window-title font-semibold text-on-surface">System Info</h2>
+<div class="w-10 h-10"></div>
+</div>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-6 pb-20 flex flex-col items-center text-center">
+<img alt="Alex Dev" class="w-24 h-24 rounded-full object-cover border-4 border-surface shadow-md mb-4" data-alt="A professional headshot avatar of a software developer. The individual is looking directly at the camera with a confident, welcoming expression. The lighting is bright and even, set against a soft, light-grey gradient background that fits a light-mode UI. High resolution, modern tech industry styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE7tQHnlTQqUTmbd9GndjO_3JAxz_M5SPZ8xTKvaP1_VnnLouJn5UxvOunfkGydRwbFihov7pAKeCOWXEdANfmPHQ4WrLxh-WUFEOrnsVhSyMPbliczy3CAYBan9PypVpQtuGASTk9LG3kd64vYwHK3QwA42Pvb5K0ozc4AyYj3P1NJaTnP9hf4ys0v0nK_em6sOjhgP27eDGtC3dHMs8FuPOgFwQoISGd5MFJ17iO_lBxYsoXZIH3"/>
+<h1 class="text-window-title font-window-title text-on-surface font-bold text-xl">DevOS v11.4</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-2 mb-8">Registered to: Alex Dev</p>
+<div class="w-full bg-surface-light rounded-xl p-4 shadow-sm border border-surface-variant/30 text-left space-y-3">
+<h3 class="text-body-md font-window-title font-semibold text-on-surface border-b border-surface-variant pb-2">Technical Specifications</h3>
+<div class="flex justify-between items-center">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Processor</span>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">Full Stack Intel</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Installed RAM</span>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">16GB (Coffee)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-body-sm font-body-sm text-on-surface-variant">System Type</span>
+<span class="text-body-sm font-body-sm text-on-surface font-medium">React / Node OS</span>
+</div>
+</div>
+<button class="mt-8 px-6 py-2 bg-primary text-on-primary rounded-lg font-body-sm font-medium hover:brightness-110 active:scale-95 transition-all shadow-sm">
+                Check for Updates
+            </button>
+</div>
+</div>
+<script>
+        // Simple Modal Logic
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('hidden');
+                // Trigger reflow for animation if needed
+                void modal.offsetWidth; 
+                modal.classList.add('modal-enter-active');
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('modal-enter-active');
+            }
+        }
+    </script>
+</body></html>
