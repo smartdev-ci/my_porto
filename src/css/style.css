@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles personnalisés Windows 11 */
+@layer base {
+  * {
+    @apply box-border;
+  }
+  
+  html, body {
+    @apply h-full w-full overflow-hidden;
+    @apply font-sans;
+  }
+  
+  body {
+    @apply bg-cover bg-center bg-no-repeat;
+    @apply transition-colors duration-300;
+  }
+  
+  .light {
+    @apply text-gray-900;
+  }
+  
+  .dark {
+    @apply text-gray-100;
+  }
+}
+
+@layer components {
+  /* Glassmorphism effect - Mica */
+  .glass {
+    @apply backdrop-blur-mica;
+    @apply bg-windows-glass dark:bg-windows-glassDark;
+    @apply border border-white/20 dark:border-white/5;
+  }
+  
+  /* Bureau Windows */
+  .desktop {
+    @apply h-full w-full relative;
+    @apply flex flex-col justify-between p-4;
+  }
+  
+  /* Icônes du bureau */
+  .desktop-icon {
+    @apply flex flex-col items-center justify-center;
+    @apply w-24 h-24 p-2 rounded-lg;
+    @apply hover:bg-white/10 dark:hover:bg-white/5;
+    @apply cursor-pointer transition-all duration-200;
+    @apply select-none;
+  }
+  
+  .desktop-icon.active {
+    @apply bg-white/20 dark:bg-white/10;
+  }
+  
+  .desktop-icon-icon {
+    @apply w-12 h-12 mb-1;
+  }
+  
+  .desktop-icon-label {
+    @apply text-xs text-center;
+    @apply text-white drop-shadow-md;
+    @apply line-clamp-2;
+  }
+  
+  /* Barre des tâches */
+  .taskbar {
+    @apply glass;
+    @apply h-12 fixed bottom-0 left-0 right-0;
+    @apply flex items-center justify-between px-4 z-50;
+  }
+  
+  .taskbar-center {
+    @apply flex items-center gap-1;
+  }
+  
+  .taskbar-icon {
+    @apply w-10 h-10 rounded-lg;
+    @apply flex items-center justify-center;
+    @apply hover:bg-white/20 dark:hover:bg-white/10;
+    @apply cursor-pointer transition-all duration-200;
+    @apply relative;
+  }
+  
+  .taskbar-icon.active::after {
+    content: '';
+    @apply absolute bottom-1 left-1/2 -translate-x-1/2;
+    @apply w-4 h-1 bg-blue-500 rounded-full;
+  }
+  
+  .taskbar-left, .taskbar-right {
+    @apply flex items-center gap-2;
+  }
+  
+  /* Menu Démarrer */
+  .start-menu {
+    @apply glass;
+    @apply fixed bottom-14 left-1/2 -translate-x-1/2;
+    @apply w-[600px] h-[650px] rounded-xl;
+    @apply p-6 z-40;
+    @apply transform transition-all duration-300;
+    @apply opacity-0 pointer-events-none scale-95;
+  }
+  
+  .start-menu.open {
+    @apply opacity-100 pointer-events-auto scale-100;
+  }
+  
+  /* Fenêtres */
+  .window {
+    @apply glass;
+    @apply rounded-xl shadow-2xl;
+    @apply min-w-[400px] min-h-[300px];
+    @apply flex flex-col;
+    @apply absolute;
+  }
+  
+  .window-header {
+    @apply h-10 flex items-center justify-between;
+    @apply px-4 border-b border-white/10 dark:border-white/5;
+    @apply cursor-move select-none;
+  }
+  
+  .window-title {
+    @apply text-sm font-medium;
+  }
+  
+  .window-controls {
+    @apply flex items-center gap-2;
+  }
+  
+  .window-control {
+    @apply w-8 h-8 rounded-lg;
+    @apply flex items-center justify-center;
+    @apply hover:bg-white/20 dark:hover:bg-white/10;
+    @apply cursor-pointer transition-colors;
+  }
+  
+  .window-control.close:hover {
+    @apply bg-red-500 text-white;
+  }
+  
+  .window-content {
+    @apply flex-1 overflow-auto p-4;
+  }
+  
+  /* Notifications Toast */
+  .toast-container {
+    @apply fixed bottom-16 right-4 z-50;
+    @apply flex flex-col gap-2;
+  }
+  
+  .toast {
+    @apply glass;
+    @apply px-4 py-3 rounded-lg shadow-lg;
+    @apply flex items-center gap-3;
+    @apply animate-slide-up;
+    @apply min-w-[300px];
+  }
+  
+  /* Context Menu */
+  .context-menu {
+    @apply glass;
+    @apply fixed rounded-lg shadow-xl;
+    @apply py-2 min-w-[200px];
+    @apply z-50;
+    @apply opacity-0 pointer-events-none scale-95;
+    @apply transition-all duration-200;
+  }
+  
+  .context-menu.open {
+    @apply opacity-100 pointer-events-auto scale-100;
+  }
+  
+  .context-menu-item {
+    @apply px-4 py-2 text-sm;
+    @apply hover:bg-white/20 dark:hover:bg-white/10;
+    @apply cursor-pointer;
+  }
+  
+  /* Search Bar */
+  .search-bar {
+    @apply glass;
+    @apply h-10 px-4 rounded-full;
+    @apply flex items-center gap-2;
+    @apply w-64;
+  }
+  
+  .search-input {
+    @apply bg-transparent border-none outline-none;
+    @apply text-sm flex-1;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 3px;
+  }
+}
