@@ -10,17 +10,17 @@
   * {
     @apply box-border;
   }
-  
+
   html, body {
     @apply h-full w-full overflow-hidden;
     font-family: 'Inter', sans-serif;
   }
-  
+
   body {
     @apply bg-cover bg-center bg-no-repeat;
     @apply transition-colors duration-300;
   }
-  
+
   /* Material Symbols Outlined setup */
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined';
@@ -37,6 +37,11 @@
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
   }
+
+  /* Fix for window positioning */
+  .window {
+    position: absolute;
+  }
 }
 
 @layer components {
@@ -46,67 +51,51 @@
     @apply bg-windows-glass dark:bg-windows-glassDark;
     @apply border border-white/20 dark:border-white/5;
   }
-  
+
   /* Glass panel pour les fenêtres */
   .glass-panel {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
   }
-  
+
   .glass-panel-dark {
-    background-color: rgba(30, 30, 30, 0.7);
+    background-color: rgba(30, 30, 30, 0.6);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
   }
-  
-  /* Bureau Windows */
-  .desktop {
-    @apply h-full w-full relative;
-    @apply flex flex-col justify-between p-4;
-  }
-  
-  /* Desktop wallpaper light mode */
-  .desktop-bg-light {
-    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #bae6fd 100%);
-    background-size: cover;
-    background-position: center;
-  }
-  
-  /* Desktop wallpaper dark mode */
-  .desktop-bg-dark {
-    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #121212 100%);
-  }
-  
-  /* Icônes du bureau */
+
+  /* Desktop Icons */
   .desktop-icon {
-    @apply flex flex-col items-center justify-center;
-    @apply w-20 h-20 p-2 rounded-lg;
-    @apply hover:bg-white/30 dark:hover:bg-white/10;
-    @apply cursor-pointer transition-all duration-200;
-    @apply select-none;
+    @apply w-[80px] h-[80px] flex flex-col items-center justify-center gap-1;
+    @apply transition-colors;
+    @apply focus:outline-none focus:ring-1 focus:ring-primary/30;
+    @apply rounded cursor-pointer select-none;
   }
-  
-  .desktop-icon.active {
-    @apply bg-white/40 dark:bg-white/20;
-    @apply border border-white/50;
-  }
-  
+
   .desktop-icon-icon {
-    @apply w-12 h-12 mb-1;
+    @apply w-12 h-12 flex items-center justify-center relative;
   }
-  
+
   .desktop-icon-label {
-    @apply text-icon-label font-icon-label;
-    @apply text-on-surface dark:text-text-primary-dark;
+    @apply font-icon-label text-icon-label text-on-surface text-center;
     @apply drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)] dark:drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)];
-    @apply line-clamp-2 text-center;
   }
-  
+
+  .icon-hover:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+  }
+
+  .desktop-icon.active {
+    @apply bg-white/30;
+    @apply border border-white/40;
+  }
+
   /* Barre des tâches */
   .taskbar {
     @apply fixed bottom-0 left-0 right-0;
@@ -115,11 +104,11 @@
     @apply backdrop-blur-[20px];
     @apply shadow-[0_-2px_10px_rgba(0,0,0,0.1)];
   }
-  
+
   .taskbar-center {
     @apply flex items-center gap-1;
   }
-  
+
   .taskbar-icon {
     @apply w-10 h-10 rounded;
     @apply flex items-center justify-center;
@@ -127,34 +116,34 @@
     @apply cursor-pointer transition-all duration-200;
     @apply relative;
   }
-  
+
   .taskbar-icon.active::after {
     content: '';
     @apply absolute bottom-0 left-1/2 -translate-x-1/2;
     @apply w-4 h-[3px] bg-primary rounded-t-sm;
   }
-  
+
   .taskbar-left, .taskbar-right {
     @apply flex items-center gap-2;
   }
-  
+
   /* Menu Démarrer */
   .start-menu {
     @apply fixed bottom-[60px] left-1/2 -translate-x-1/2;
     @apply w-[600px] h-[640px] rounded-[12px];
-    @apply bg-surface-container-low/80;
+    @apply bg-surface-container-low/80 dark:bg-surface-dark/80;
     @apply backdrop-blur-[30px];
     @apply shadow-[0_8px_32px_rgba(0,0,0,0.12)];
-    @apply border border-white/30;
+    @apply border border-white/30 dark:border-white/10;
     @apply z-40 flex flex-col overflow-hidden;
     @apply transform transition-all duration-300;
     @apply opacity-0 pointer-events-none scale-95 translate-y-5;
   }
-  
+
   .start-menu.open {
     @apply opacity-100 pointer-events-auto scale-100 translate-y-0;
   }
-  
+
   /* Fenêtres */
   .window {
     @apply rounded-xl shadow-2xl;
@@ -163,104 +152,104 @@
     @apply absolute;
     @apply overflow-hidden;
   }
-  
+
   .window.mica {
     @apply backdrop-blur-[20px];
-    @apply bg-surface-container-low/70;
-    @apply border border-white/20;
+    @apply bg-surface-container-low/70 dark:bg-surface-dark/70;
+    @apply border border-white/20 dark:border-white/5;
   }
-  
+
   .window-header {
     @apply h-10 flex items-center justify-between;
-    @apply px-4 border-b border-white/20;
+    @apply px-4 border-b border-white/20 dark:border-white/5;
     @apply cursor-move select-none;
   }
-  
+
   .window-title {
     @apply text-window-title font-window-title;
-    @apply text-on-surface;
+    @apply text-on-surface dark:text-text-primary-dark;
   }
-  
+
   .window-controls {
     @apply flex items-center gap-1;
   }
-  
+
   .window-control {
     @apply w-8 h-8 rounded;
     @apply flex items-center justify-center;
     @apply hover:bg-black/5 dark:hover:bg-white/10;
     @apply cursor-pointer transition-colors;
   }
-  
+
   .window-control.close:hover {
     @apply bg-error text-on-error;
   }
-  
+
   .window-content {
     @apply flex-1 overflow-auto p-window-padding;
   }
-  
+
   /* Notifications Toast */
   .toast-container {
     @apply fixed bottom-[80px] right-6 z-50;
     @apply flex flex-col gap-2;
   }
-  
+
   .toast {
-    @apply glass-panel;
+    @apply glass-panel dark:glass-panel-dark;
     @apply px-4 py-3 rounded-lg shadow-lg;
     @apply flex items-center gap-3;
     @apply animate-fade-in-up;
     @apply min-w-[300px];
     @apply border-l-4 border-l-terminal-green;
   }
-  
+
   /* Context Menu */
   .context-menu {
     @apply fixed rounded-lg shadow-xl;
-    @apply bg-surface-container-low/80;
+    @apply bg-surface-container-low/80 dark:bg-surface-dark/80;
     @apply backdrop-blur-[20px];
     @apply py-1 min-w-[220px];
-    @apply ring-1 ring-white/20;
+    @apply ring-1 ring-white/20 dark:ring-white/10;
     @apply z-50;
     @apply opacity-0 pointer-events-none scale-95;
     @apply transition-all duration-200;
   }
-  
+
   .context-menu.open {
     @apply opacity-100 pointer-events-auto scale-100;
   }
-  
+
   .context-menu-item {
     @apply px-3 py-2 flex items-center gap-3;
     @apply text-body-sm font-body-sm;
-    @apply text-on-surface;
-    @apply hover:bg-surface-variant/50;
+    @apply text-on-surface dark:text-text-primary-dark;
+    @apply hover:bg-surface-variant/50 dark:hover:bg-white/10;
     @apply cursor-pointer transition-colors;
   }
-  
+
   .context-menu-item.active {
     @apply bg-primary/10 text-primary;
   }
-  
+
   /* Search Bar */
   .search-bar {
     @apply h-10 px-4 rounded-lg;
     @apply flex items-center gap-2;
-    @apply bg-surface-container-low/50;
-    @apply border border-outline-variant/30;
+    @apply bg-surface-container-low/50 dark:bg-surface-dark/50;
+    @apply border border-outline-variant/30 dark:border-white/10;
     @apply w-64;
   }
-  
+
   .search-input {
     @apply bg-transparent border-none outline-none;
     @apply text-body-sm font-body-sm flex-1;
-    @apply text-on-surface;
-    @apply placeholder:text-on-surface-variant/60;
-    @apply focus:border-primary/50 focus:bg-surface-container-low;
+    @apply text-on-surface dark:text-text-primary-dark;
+    @apply placeholder:text-on-surface-variant/60 dark:placeholder:text-white/50;
+    @apply focus:border-primary/50 focus:bg-surface-container-low dark:focus:bg-surface-dark/50;
     @apply transition-colors;
   }
-  
+
   /* Floating label input */
   .floating-input:focus ~ .floating-label,
   .floating-input:not(:placeholder-shown) ~ .floating-label {
@@ -270,12 +259,12 @@
     background-color: transparent;
     padding: 0 4px;
   }
-  
+
   /* Cursor blink animation for terminal */
   .cursor-blink {
     animation: blink 1s step-end infinite;
   }
-  
+
   @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
@@ -287,24 +276,24 @@
     scrollbar-width: thin;
     scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.2);
     border-radius: 4px;
   }
-  
+
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
   }
-  
+
   /* Line clamp utility */
   .line-clamp-2 {
     display: -webkit-box;

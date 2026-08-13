@@ -1,30 +1,35 @@
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="fr" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
+
   <title>Portfolio Windows 11 - Aristide Ghislain Adouko</title>
-  
+
   <meta name="description" content="Portfolio interactif de développeur Full Stack Junior - Expérience immersive style Windows 11">
   <meta name="author" content="Aristide Ghislain Adouko">
-  
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪟</text></svg>">
-  
+
   <!-- Preconnect to CDNs -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  
-  <!-- Phosphor Icons -->
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Material Symbols Outlined -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS (sera généré par Vite) -->
-  <link rel="stylesheet" href="/src/css/style.css">
-  
+  <link rel="stylesheet" href="/src/css/style.css?v=2">
+
   <!-- xterm.js pour le terminal -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css">
-  
+
   <style>
     /* Fond d'écran personnalisé */
     body {
@@ -33,60 +38,151 @@
       background-position: center;
       background-attachment: fixed;
     }
-    
-    /* Fallback gradient si pas d'image */
-    .light body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+    /* Desktop backgrounds */
+    .light .desktop-bg {
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #bae6fd 100%);
+      background-size: cover;
+      background-position: center;
     }
-    
-    .dark body {
-      background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+
+    .dark .desktop-bg {
+      background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #121212 100%);
     }
-    
+
     /* Curseur personnalisé */
     * {
       cursor: default;
     }
-    
+
     a, button, [role="button"], .taskbar-icon, .desktop-icon, .window-control {
       cursor: pointer;
     }
-    
+
     /* Masquer la scrollbar mais garder le scroll */
     ::-webkit-scrollbar {
       width: 8px;
       height: 8px;
     }
-    
+
     ::-webkit-scrollbar-track {
       background: transparent;
     }
-    
+
     ::-webkit-scrollbar-thumb {
       background: rgba(156, 163, 175, 0.5);
       border-radius: 4px;
     }
-    
+
     ::-webkit-scrollbar-thumb:hover {
       background: rgba(156, 163, 175, 0.7);
     }
+
+    /* Material Symbols Outlined setup */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 24px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+    }
   </style>
 </head>
-<body class="light">
-  <!-- Bureau principal -->
-  <div class="desktop" id="desktop">
+<body class="desktop-bg h-screen w-full overflow-hidden text-on-surface font-body-md select-none relative">
+  <!-- Desktop Icons Grid -->
+  <div class="absolute top-0 left-0 p-desktop-margin h-[calc(100vh-50px)] flex flex-col flex-wrap gap-4 content-start" id="desktop-icons">
     <!-- Les icônes seront ajoutées dynamiquement par JS -->
-    
-    <!-- Barre des tâches -->
-    <div class="taskbar" id="taskbar">
-      <!-- Sera rempli par JS -->
+  </div>
+
+  <!-- Floating Profile Card (Bottom Right) -->
+  <div class="absolute bottom-[70px] right-6 w-80 glass-panel rounded-xl p-5 flex flex-col gap-4 animate-[slideUp_0.3s_ease-out] hidden" id="profile-card">
+    <div class="flex items-center gap-4">
+      <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm shrink-0">
+        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpwNDEG4k2x0wAJYoHm-xiDjhZOKlVcHDzkyqZYknf9-UZBcuKS7OHsuleexC6pl0X9WzN9HsE7c6QtSSj7KMUjTXNE6ZTZLIGpjMcRVvXcBitH9ZW9ugmbcoqyFiUJENEmIMB9sgQpWtEX7WbYW52i4ptFoEtUQrOCA_nvd7CgnNKhoC3KXEh-X148zyI99bkvakMQ8EenU9uQYPBadDaEmlES8NA8JONLXMXeU5Rc0fJUnpUFAsk" alt="Aristide Ghislain Adouko">
+      </div>
+      <div>
+        <h2 class="font-window-title text-window-title text-on-surface m-0 leading-tight">Aristide Ghislain Adouko</h2>
+        <p class="font-body-sm text-body-sm text-on-surface-variant m-0">Full Stack Engineer</p>
+      </div>
+    </div>
+    <div class="flex gap-2">
+      <button class="flex-1 bg-primary text-on-primary py-1.5 rounded-md font-body-sm text-body-sm hover:brightness-110 transition-all shadow-sm">View Profile</button>
+      <button class="flex-1 bg-transparent border border-outline-variant text-on-surface py-1.5 rounded-md font-body-sm text-body-sm hover:bg-surface-variant/50 transition-all">Message</button>
     </div>
   </div>
-  
+
+  <!-- Taskbar -->
+  <nav class="fixed bottom-0 left-0 right-0 h-[50px] flex items-center justify-between px-4 z-50 bg-surface-container/70 dark:bg-bg-dark/80 backdrop-blur-[20px] shadow-[0_-2px_10px_rgba(0,0,0,0.1)] text-primary dark:text-primary-fixed-dim" id="taskbar">
+    <!-- Center App Cluster -->
+    <div class="flex-1 flex justify-center items-center h-full space-x-1" id="taskbar-center">
+      <!-- Start Button -->
+      <button aria-label="Start" class="w-10 h-10 flex items-center justify-center rounded hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 focus:outline-none" id="start-btn">
+        <span class="material-symbols-outlined text-2xl text-primary" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+      </button>
+      <!-- Search -->
+      <div class="relative flex items-center ml-2 mr-2">
+        <span class="material-symbols-outlined absolute left-2 text-on-surface-variant text-[18px]">search</span>
+        <input class="h-8 w-48 pl-8 pr-3 rounded bg-surface-container-low/50 border border-outline-variant/30 text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary/50 focus:bg-surface-container-low transition-colors" placeholder="Search" type="text" id="taskbar-search">
+      </div>
+      <!-- Taskbar Icons -->
+      <button class="w-10 h-10 flex items-center justify-center rounded hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 relative group" id="file-explorer-taskbar">
+        <span class="material-symbols-outlined text-[22px] text-tertiary" style="font-variation-settings: 'FILL' 1;">folder</span>
+        <!-- Active Indicator -->
+        <div class="absolute bottom-0 w-4 h-[3px] bg-primary rounded-t-sm"></div>
+      </button>
+      <button class="w-10 h-10 flex items-center justify-center rounded hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 relative group" id="terminal-taskbar">
+        <span class="material-symbols-outlined text-[22px] text-on-surface-variant">terminal</span>
+        <div class="absolute bottom-0 w-4 h-[3px] bg-outline-variant rounded-t-sm"></div>
+      </button>
+      <button class="w-10 h-10 flex items-center justify-center rounded hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200" id="calculator-taskbar">
+        <span class="material-symbols-outlined text-[22px] text-primary">calculate</span>
+      </button>
+    </div>
+    <!-- Right System Tray -->
+    <div class="flex items-center space-x-2 h-full" id="taskbar-right">
+      <button class="flex items-center gap-1 h-full px-2 hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded">
+        <span class="material-symbols-outlined text-[16px] text-on-surface-variant">keyboard_arrow_up</span>
+      </button>
+      <button class="flex items-center h-full px-2 hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded font-metadata text-metadata text-on-surface-variant" id="lang-switch">
+        FR
+      </button>
+      <!-- Trailing Icons -->
+      <button class="flex items-center h-full px-2 hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded space-x-1 text-on-surface-variant">
+        <span class="material-symbols-outlined text-[18px]">wifi</span>
+        <span class="material-symbols-outlined text-[18px]">volume_up</span>
+        <span class="material-symbols-outlined text-[18px]">battery_full</span>
+      </button>
+      <!-- Clock -->
+      <button class="flex flex-col items-end justify-center h-full px-2 hover:bg-white/10 dark:hover:bg-white/5 transition-all duration-200 rounded">
+        <span class="font-clock text-clock text-on-surface" id="clock-time">00:00</span>
+        <span class="font-metadata text-[10px] text-on-surface-variant leading-none" id="clock-date">01/01/2024</span>
+      </button>
+    </div>
+  </nav>
+
   <!-- Menu contextuel (sera ajouté dynamiquement) -->
-  
+  <div class="context-menu" id="context-menu">
+    <!-- Sera rempli par JS -->
+  </div>
+
   <!-- Container pour les notifications toast (sera ajouté dynamiquement) -->
-  
+  <div class="toast-container" id="toast-container">
+    <!-- Sera rempli par JS -->
+  </div>
+
+  <!-- Start Menu -->
+  <div class="start-menu" id="start-menu">
+    <!-- Sera rempli par JS -->
+  </div>
+
   <!-- Scripts modules -->
   <script type="module" src="/src/js/main.js"></script>
 </body>

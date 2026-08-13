@@ -14,9 +14,10 @@ export class WindowManager {
   }
 
   init() {
-    this.desktop = document.querySelector('.desktop');
+    // In the new design, windows are added to the body directly
+    this.desktop = document.body;
     if (!this.desktop) {
-      console.error('Desktop element not found');
+      console.error('Body element not found');
       return;
     }
   }

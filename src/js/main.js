@@ -16,21 +16,21 @@ class App {
     this.isDarkMode = false;
     this.startMenuOpen = false;
     this.contextMenu = null;
-    
+
     this.init();
   }
 
   init() {
     // Charger les préférences
     this.loadPreferences();
-    
+
     // Initialiser le gestionnaire de fenêtres
     this.windowManager = new WindowManager();
-    
+
     // Initialiser les applications
     this.terminalApp = new TerminalApp(this.windowManager, this.currentLang);
     this.calculatorApp = new CalculatorApp(this.windowManager);
-    
+
     // Attendre que le DOM soit prêt
     document.addEventListener('DOMContentLoaded', () => {
       this.setupDesktop();
@@ -40,7 +40,7 @@ class App {
       this.setupClock();
       this.applyTheme();
       this.applyLanguage();
-      
+
       console.log('Portfolio Windows 11 initialized');
     });
   }
@@ -48,68 +48,77 @@ class App {
   loadPreferences() {
     const savedTheme = localStorage.getItem('theme');
     const savedLang = localStorage.getItem('lang');
-    
+
     this.isDarkMode = savedTheme === 'dark';
     this.currentLang = savedLang || defaultLang;
   }
 
   setupDesktop() {
-    const desktop = document.querySelector('.desktop');
-    if (!desktop) return;
+    const desktopIconsContainer = document.getElementById('desktop-icons');
+    if (!desktopIconsContainer) return;
 
-    // Icônes du bureau
+    // Clear existing icons
+    desktopIconsContainer.innerHTML = '';
+
+    // Icônes du bureau selon le design
     const desktopIcons = [
-      { id: 'this-pc', name: { fr: 'Ce PC', en: 'This PC' }, icon: 'ph-desktop', action: () => this.openFileExplorer() },
-      { id: 'file-explorer', name: { fr: 'Explorateur', en: 'Explorer' }, icon: 'ph-folder', action: () => this.openFileExplorer() },
-      { id: 'terminal', name: { fr: 'Terminal', en: 'Terminal' }, icon: 'ph-terminal-window', action: () => this.terminalApp.open() },
-      { id: 'calculator', name: { fr: 'Calculatrice', en: 'Calculator' }, icon: 'ph-calculator', action: () => this.calculatorApp.open() },
-      { id: 'about', name: { fr: 'À propos', en: 'About' }, icon: 'ph-user', action: () => this.openAbout() },
-      { id: 'projects', name: { fr: 'Projets', en: 'Projects' }, icon: 'ph-briefcase', action: () => this.openProjects() },
-      { id: 'contact', name: { fr: 'Contact', en: 'Contact' }, icon: 'ph-envelope', action: () => this.openContact() },
-      { id: 'cv', name: { fr: 'CV', en: 'CV' }, icon: 'ph-file-text', action: () => this.downloadCV() }
+      { id: 'cv', name: { fr: 'CV', en: 'CV' }, icon: 'description', color: 'text-primary', action: () => this.downloadCV() },
+      { id: 'projects', name: { fr: 'Projets', en: 'Projects' }, icon: 'folder', color: 'text-tertiary', filled: true, action: () => this.openProjects() },
+      { id: 'education', name: { fr: 'Éducation', en: 'Education' }, icon: 'school', color: 'text-on-surface-variant', action: () => this.openEducation() },
+      { id: 'experience', name: { fr: 'Expérience', en: 'Experience' }, icon: 'work', color: 'text-secondary', action: () => this.openExperience() },
+      { id: 'contact', name: { fr: 'Contact', en: 'Contact' }, icon: 'mail', color: 'text-on-surface', action: () => this.openContact() },
+      { id: 'calculator', name: { fr: 'Calculatrice', en: 'Calculator' }, icon: 'calculate', color: 'text-on-surface', action: () => this.calculatorApp.open() },
+      { id: 'file-explorer', name: { fr: 'Explorateur', en: 'Explorer' }, icon: 'folder_open', color: 'text-tertiary', filled: true, active: true, action: () => this.openFileExplorer() }
     ];
 
-    const iconsContainer = document.createElement('div');
-    iconsContainer.className = 'grid grid-cols-1 gap-2';
-    
     desktopIcons.forEach(iconData => {
-      const iconEl = document.createElement('div');
+      const iconEl = document.createElement('button');
       iconEl.className = 'desktop-icon';
-      iconEl.draggable = true;
       iconEl.dataset.id = iconData.id;
-      
+
+      if (iconData.active) {
+        iconEl.classList.add('active');
+      }
+
       const name = iconData.name[this.currentLang] || iconData.name.en;
-      
+      const fillStyle = iconData.filled ? 'style="font-variation-settings: \'FILL\' 1;"' : '';
+
       iconEl.innerHTML = `
-        <i class="ph ${iconData.icon} desktop-icon-icon text-white"></i>
+        <div class="desktop-icon-icon">
+          <span class="material-symbols-outlined text-4xl ${iconData.color} drop-shadow-sm group-hover:drop-shadow-md transition-all" ${fillStyle}>
+            ${iconData.icon}
+          </span>
+          ${iconData.id === 'cv' ? '<span class="absolute bottom-0 right-0 material-symbols-outlined text-[10px] bg-white rounded-full text-on-surface-variant p-[1px] shadow-sm">download</span>' : ''}
+        </div>
         <span class="desktop-icon-label">${name}</span>
       `;
-      
+
       iconEl.addEventListener('click', () => iconData.action());
       iconEl.addEventListener('dblclick', () => iconData.action());
-      
-      // Drag & Drop pour position
-      this.setupIconDrag(iconEl);
-      
-      iconsContainer.appendChild(iconEl);
+
+      desktopIconsContainer.appendChild(iconEl);
     });
 
-    desktop.insertBefore(iconsContainer, desktop.firstChild);
+    // Show profile card
+    const profileCard = document.getElementById('profile-card');
+    if (profileCard) {
+      profileCard.classList.remove('hidden');
+    }
   }
 
   setupIconDrag(iconEl) {
     let isDragging = false;
-    
+
     iconEl.addEventListener('dragstart', (e) => {
       isDragging = true;
       e.dataTransfer.setData('text/plain', iconEl.dataset.id);
       setTimeout(() => iconEl.classList.add('opacity-50'), 0);
     });
-    
+
     iconEl.addEventListener('dragend', () => {
       isDragging = false;
       iconEl.classList.remove('opacity-50');
-      
+
       // Sauvegarder la position
       const rect = iconEl.getBoundingClientRect();
       const positions = JSON.parse(localStorage.getItem('iconPositions') || '{}');
@@ -141,10 +150,10 @@ class App {
       if (iconData.window) {
         iconEl.dataset.window = iconData.window;
       }
-      
+
       iconEl.innerHTML = `<i class="ph ${iconData.icon} text-xl text-white"></i>`;
       iconEl.addEventListener('click', () => iconData.action());
-      
+
       centerContainer.appendChild(iconEl);
     });
 
@@ -185,24 +194,24 @@ class App {
     const startMenu = document.createElement('div');
     startMenu.className = 'start-menu';
     startMenu.id = 'start-menu';
-    
+
     startMenu.innerHTML = `
       <div class="mb-6">
-        <input 
-          type="text" 
+        <input
+          type="text"
           id="start-search"
           class="search-input w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 outline-none focus:border-blue-500"
           placeholder="${translations[this.currentLang]?.search_placeholder || translations.en.search_placeholder}"
         />
       </div>
-      
+
       <div class="mb-4">
         <h3 class="text-sm font-semibold mb-3 text-white" data-i18n="pinned">Épinglé</h3>
         <div class="grid grid-cols-6 gap-4" id="pinned-apps">
           <!-- Applications épinglées -->
         </div>
       </div>
-      
+
       <div class="mt-auto pt-4 border-t border-white/10">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3">
@@ -289,7 +298,7 @@ class App {
     // Implémentation de la recherche dans le menu démarrer
     const pinnedApps = document.querySelectorAll('#pinned-apps > div');
     const searchTerm = query.toLowerCase();
-    
+
     pinnedApps.forEach(app => {
       const appName = app.dataset.app.toLowerCase();
       app.style.display = appName.includes(searchTerm) ? 'flex' : 'none';
@@ -300,7 +309,7 @@ class App {
     const contextMenu = document.createElement('div');
     contextMenu.className = 'context-menu';
     contextMenu.id = 'context-menu';
-    
+
     contextMenu.innerHTML = `
       <div class="context-menu-item" data-action="refresh">
         <i class="ph ph-arrow-clockwise mr-2"></i>Actualiser
@@ -375,17 +384,17 @@ class App {
   setupClock() {
     const updateTime = () => {
       const now = new Date();
-      
+
       const timeEl = document.getElementById('clock-time');
       const dateEl = document.getElementById('clock-date');
-      
+
       if (timeEl) {
-        timeEl.textContent = now.toLocaleTimeString(this.currentLang, { 
-          hour: '2-digit', 
-          minute: '2-digit' 
+        timeEl.textContent = now.toLocaleTimeString(this.currentLang, {
+          hour: '2-digit',
+          minute: '2-digit'
         });
       }
-      
+
       if (dateEl) {
         dateEl.textContent = now.toLocaleDateString(this.currentLang, {
           day: '2-digit',
@@ -402,12 +411,12 @@ class App {
   toggleTheme() {
     this.isDarkMode = !this.isDarkMode;
     this.applyTheme();
-    
+
     const themeIcon = document.querySelector('#theme-toggle i');
     if (themeIcon) {
       themeIcon.className = `ph ${this.isDarkMode ? 'ph-sun' : 'ph-moon'} text-white`;
     }
-    
+
     // Mettre à jour le context menu
     const contextMenuItem = this.contextMenu?.querySelector('[data-action="theme"]');
     if (contextMenuItem) {
@@ -431,7 +440,7 @@ class App {
 
   applyLanguage() {
     localStorage.setItem('lang', this.currentLang);
-    
+
     // Mettre à jour tous les éléments avec data-i18n
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
@@ -506,7 +515,7 @@ class App {
         </div>
       </div>
     `;
-    
+
     this.windowManager.createWindow('explorer-window', 'Explorateur de fichiers', content, {
       width: '700px',
       height: '500px'
@@ -536,7 +545,7 @@ class App {
         </div>
       </div>
     `;
-    
+
     this.windowManager.createWindow('about-window', 'À propos', content, {
       width: '500px',
       height: '400px'
@@ -568,7 +577,7 @@ class App {
         }).join('')}
       </div>
     `;
-    
+
     this.windowManager.createWindow('projects-window', 'Projets', content, {
       width: '800px',
       height: '600px'
@@ -594,7 +603,7 @@ class App {
         }).join('')}
       </div>
     `;
-    
+
     this.windowManager.createWindow('skills-window', 'Compétences', content, {
       width: '600px',
       height: '500px'
@@ -626,7 +635,7 @@ class App {
             <div>${contact.location}</div>
           </div>
         </div>
-        
+
         <form class="mt-6 space-y-4" onsubmit="event.preventDefault(); alert('Message envoyé!');">
           <input type="text" placeholder="Nom" class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded focus:border-blue-500 outline-none" />
           <input type="email" placeholder="Email" class="w-full px-4 py-2 bg-white/5 border border-white/10 rounded focus:border-blue-500 outline-none" />
@@ -635,10 +644,76 @@ class App {
         </form>
       </div>
     `;
-    
+
     this.windowManager.createWindow('contact-window', 'Contact', content, {
       width: '500px',
       height: '600px'
+    });
+  }
+
+  openEducation() {
+    const education = portfolioData.education;
+    const content = `
+      <div class="space-y-6">
+        ${education.map(edu => {
+          const title = edu.title[this.currentLang] || edu.title.en;
+          const school = edu.school[this.currentLang] || edu.school.en;
+          const desc = edu.description[this.currentLang] || edu.description.en;
+          return `
+            <div class="bg-white/5 rounded-lg p-4">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold">${title}</h3>
+                <span class="text-xs text-gray-400">${edu.period}</span>
+              </div>
+              <p class="text-blue-400 font-semibold mb-2">${school}</p>
+              <p class="text-sm text-gray-300 mb-3">${desc}</p>
+              <div class="flex flex-wrap gap-2">
+                ${edu.skills.map(skill => `
+                  <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">${skill}</span>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    this.windowManager.createWindow('education-window', 'Éducation', content, {
+      width: '700px',
+      height: '500px'
+    });
+  }
+
+  openExperience() {
+    const experience = portfolioData.experience;
+    const content = `
+      <div class="space-y-6">
+        ${experience.map(exp => {
+          const title = exp.title[this.currentLang] || exp.title.en;
+          const company = exp.company[this.currentLang] || exp.company.en;
+          const desc = exp.description[this.currentLang] || exp.description.en;
+          return `
+            <div class="bg-white/5 rounded-lg p-4">
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold">${title}</h3>
+                <span class="text-xs text-gray-400">${exp.period}</span>
+              </div>
+              <p class="text-blue-400 font-semibold mb-2">${company}</p>
+              <p class="text-sm text-gray-300 mb-3">${desc}</p>
+              <div class="flex flex-wrap gap-2">
+                ${exp.skills.map(skill => `
+                  <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">${skill}</span>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    this.windowManager.createWindow('experience-window', 'Expérience', content, {
+      width: '700px',
+      height: '500px'
     });
   }
 
@@ -664,7 +739,7 @@ class App {
         </div>
       </div>
     `;
-    
+
     this.windowManager.createWindow('browser-window', 'Navigateur', content, {
       width: '900px',
       height: '600px'
